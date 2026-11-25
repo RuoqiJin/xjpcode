@@ -1,0 +1,206 @@
+[
+	{
+		"name": "empty",
+		"text": ""
+	},
+	{
+		"name": "whitespace",
+		"text": "  \n\t "
+	},
+	{
+		"name": "object",
+		"text": "{\"path\":\"/a\",\"count\":2}"
+	},
+	{
+		"name": "array",
+		"text": "[1,\"x\",true,null]"
+	},
+	{
+		"name": "root-string-open",
+		"text": "\"abc"
+	},
+	{
+		"name": "root-string-closed",
+		"text": "\"abc\""
+	},
+	{
+		"name": "unterminated-escape",
+		"text": "\"x\\"
+	},
+	{
+		"name": "unicode-escape-complete",
+		"text": "\"\\u00e9\""
+	},
+	{
+		"name": "unicode-escape-incomplete",
+		"text": "\"\\u00"
+	},
+	{
+		"name": "unicode-escape-invalid",
+		"text": "\"\\uZZ\""
+	},
+	{
+		"name": "invalid-escape",
+		"text": "\"\\d\""
+	},
+	{
+		"name": "simple-escapes",
+		"text": "\"\\\"\\\\\\/\\b\\f\\n\\r\\t\""
+	},
+	{
+		"name": "raw-control-characters",
+		"text": "\"x\u0001\u001f y\""
+	},
+	{
+		"name": "invalid-unicode-escape-stays-literal",
+		"text": "{\"text\":\"\\url{x}\"}"
+	},
+	{
+		"name": "surrogate-pair-escaped",
+		"text": "{\"a\":\"\\ud83d\\ude00\"}"
+	},
+	{
+		"name": "raw-astral",
+		"text": "{\"a\":\"😀\"}"
+	},
+	{
+		"name": "lone-high-surrogate",
+		"text": "{\"a\":\"\\ud83d\"}"
+	},
+	{
+		"name": "duplicate-keys",
+		"text": "{\"a\":1,\"b\":2,\"a\":3}"
+	},
+	{
+		"name": "numeric-like-keys",
+		"text": "{\"2\":\"b\",\"1\":\"a\",\"b\":1}"
+	},
+	{
+		"name": "proto-key",
+		"text": "{\"__proto__\":{\"x\":1},\"b\":2}"
+	},
+	{
+		"name": "empty-key",
+		"text": "{\"\":1}"
+	},
+	{
+		"name": "missing-comma-and-colon",
+		"text": "{\"a\" 1 \"b\": 2}"
+	},
+	{
+		"name": "trailing-text",
+		"text": "{\"a\":1} junk"
+	},
+	{
+		"name": "stray-closers",
+		"text": "]]}}{"
+	},
+	{
+		"name": "invalid-words",
+		"text": "{\"a\":NaN,\"b\":Infinity,\"c\":undefined,\"d\":-Infinity,\"e\":1}"
+	},
+	{
+		"name": "invalid-numbers",
+		"text": "{\"a\":01,\"b\":1.,\"c\":.5,\"d\":+1,\"e\":0x10,\"f\":1e,\"g\":1e+,\"h\":-,\"i\":2}"
+	},
+	{
+		"name": "exponent-without-digits",
+		"text": "{\"n\":12.5e"
+	},
+	{
+		"name": "pending-literal-prefixes",
+		"text": "{\"a\":tru,\"b\":fals,\"c\":nul"
+	},
+	{
+		"name": "long-pending-number",
+		"text": "{\"n\":1234567890123456789012345678901234567890123456789012345678901234567890"
+	},
+	{
+		"name": "number-forms",
+		"text": "{\"a\":0,\"b\":-0,\"c\":1e21,\"d\":-5e-8,\"e\":2.5e3,\"f\":9007199254740993,\"g\":1e-400,\"h\":1e308}"
+	},
+	{
+		"name": "deep-32",
+		"text": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}"
+	},
+	{
+		"name": "deep-33",
+		"text": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}"
+	},
+	{
+		"name": "deep-40",
+		"text": "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":\"deep\"}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}"
+	},
+	{
+		"name": "unterminated-containers",
+		"text": "{\"a\":[1,{\"b\":["
+	},
+	{
+		"name": "string-with-braces",
+		"text": "{\"a\":\"}{][ ,:\"}"
+	},
+	{
+		"name": "escaped-quote-key",
+		"text": "{\"a\\\"b\":1}"
+	},
+	{
+		"name": "root-number",
+		"text": "12345"
+	},
+	{
+		"name": "root-literal-prefix",
+		"text": "nul"
+	},
+	{
+		"name": "root-null-complete",
+		"text": "null"
+	},
+	{
+		"name": "bom",
+		"text": "﻿{\"a\":1}"
+	},
+	{
+		"name": "double-commas",
+		"text": "{\"a\":1,,\"b\":2,}"
+	},
+	{
+		"name": "array-spaces",
+		"text": "[1 2, , 3,]"
+	},
+	{
+		"name": "nested-mismatch",
+		"text": "{\"a\":[1,2}, \"b\":3]"
+	},
+	{
+		"name": "empty-containers",
+		"text": "{\"a\":{},\"b\":[],\"c\":[[]],\"d\":{\"e\":{}}}"
+	},
+	{
+		"name": "raw-line-separator",
+		"text": "{\"a\":\"x y\"}"
+	},
+	{
+		"name": "control-in-key",
+		"text": "{\"a\u0001\":1}"
+	},
+	{
+		"name": "number-at-end",
+		"text": "[1,2,3"
+	},
+	{
+		"name": "string-at-end",
+		"text": "{\"a\":\"x"
+	},
+	{
+		"name": "colon-without-value",
+		"text": "{\"a\":"
+	},
+	{
+		"name": "key-only",
+		"text": "{\"a"
+	},
+	{
+		"name": "case-and-colon-before-string",
+		"text": "{\"a\":\"b\":\"c\"}"
+	}
+]

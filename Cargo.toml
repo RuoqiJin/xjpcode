@@ -1,0 +1,30 @@
+[workspace]
+members = ["crates/ai", "crates/agent", "crates/cli", "crates/coding-agent", "crates/schema"]
+resolver = "2"
+
+[package]
+name = "xjpcode"
+version = "0.7.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+# 新内核：内核循环、DeepSeek 模型接口、会话层与四样工具。
+xjpcode-agent = { path = "crates/agent" }
+xjpcode-ai = { path = "crates/ai" }
+xjpcode-coding-agent = { path = "crates/coding-agent" }
+indexmap = { version = "2", features = ["serde"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "signal"] }
+crossterm = { version = "0.28", features = ["event-stream"] }
+futures = "0.3"
+futures-util = "0.3"
+ratatui = "0.29"
+unicode-width = "0.2"
+anyhow = "1"
+base64 = "0.22"
+dirs = "6"
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }

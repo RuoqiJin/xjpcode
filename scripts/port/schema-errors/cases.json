@@ -1,0 +1,1999 @@
+[
+  {
+    "name": "missing required, out of range and unknown field, in that order",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "value": {
+      "offset": 0,
+      "extra": true
+    }
+  },
+  {
+    "name": "a valid value has no errors",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "value": {
+      "path": "a.ts"
+    }
+  },
+  {
+    "name": "a tagged union reports the branch its tag selects",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "text"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "image"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "kind",
+            "width"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "value": {
+      "kind": "image",
+      "width": -1
+    }
+  },
+  {
+    "name": "an unknown tag is reported at the tag, with the tags joined",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "text"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "image"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "kind",
+            "width"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "value": {
+      "kind": "video"
+    }
+  },
+  {
+    "name": "a tag made of numbers, hit by a number written as a float",
+    "schema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": 1
+            },
+            "a": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "a"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": 2
+            },
+            "b": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "b"
+          ]
+        }
+      ]
+    },
+    "value": {
+      "kind": 1.0,
+      "a": 2
+    }
+  },
+  {
+    "name": "paths escape ~ and / as JSON Pointer does",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a/b~c": {
+          "type": "string"
+        }
+      }
+    },
+    "value": {
+      "a/b~c": 1
+    }
+  },
+  {
+    "name": "a $ref is followed into the referenced schema",
+    "schema": {
+      "$defs": {
+        "point": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "x"
+          ]
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/point"
+      }
+    },
+    "value": [
+      {
+        "x": 1
+      },
+      {}
+    ]
+  },
+  {
+    "name": "a recursive schema reports the deepest missing field",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "value": {
+      "value": 1,
+      "children": [
+        {
+          "value": 2,
+          "children": [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "a relative root $id applies once",
+    "schema": {
+      "$id": "schemas/tool.json",
+      "type": "object",
+      "properties": {
+        "count": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "$defs": {
+        "count": {
+          "type": "integer"
+        }
+      }
+    },
+    "value": {
+      "count": "a"
+    }
+  },
+  {
+    "name": "unevaluatedProperties under a relative root $id",
+    "schema": {
+      "$id": "schemas/tool.json",
+      "type": "object",
+      "properties": {
+        "count": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "$defs": {
+        "count": {
+          "type": "integer"
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "value": {
+      "count": 2,
+      "extra": 1
+    }
+  },
+  {
+    "name": "unevaluatedItems under a relative root $id",
+    "schema": {
+      "$id": "schemas/list.json",
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/count"
+        }
+      ],
+      "$defs": {
+        "count": {
+          "type": "integer"
+        }
+      },
+      "unevaluatedItems": false
+    },
+    "value": [
+      2,
+      3
+    ]
+  },
+  {
+    "name": "errors under nested resources with a relative $id",
+    "schema": {
+      "$id": "https://example.com/root.json",
+      "allOf": [
+        {
+          "$ref": "#/$defs/child"
+        }
+      ],
+      "$defs": {
+        "child": {
+          "$id": "schemas/tool.json",
+          "$ref": "#/$defs/props",
+          "unevaluatedProperties": false,
+          "$defs": {
+            "props": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "count": 2,
+      "extra": 1
+    }
+  },
+  {
+    "name": "a union branch with its own $id blames its own type",
+    "schema": {
+      "$id": "https://example.com/root.json",
+      "anyOf": [
+        {
+          "$id": "a/b.json",
+          "$ref": "#/$defs/n",
+          "$defs": {
+            "n": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "value": {}
+  },
+  {
+    "name": "an unresolved $ref rejects only values at its place",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "t": {
+          "$ref": "#/definitions/Missing"
+        }
+      }
+    },
+    "options": {
+      "unresolvedRefs": "reject"
+    },
+    "value": {
+      "t": 1
+    }
+  },
+  {
+    "name": "an unresolved document reference rejects only values at its place",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "t": {
+          "$ref": "https://example.com/schemas/t.json"
+        }
+      }
+    },
+    "options": {
+      "unresolvedRefs": "reject"
+    },
+    "value": {
+      "t": 1
+    }
+  },
+  {
+    "name": "a long enum names at most twenty values",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "e": {
+          "type": "string",
+          "enum": [
+            "v0",
+            "v1",
+            "v2",
+            "v3",
+            "v4",
+            "v5",
+            "v6",
+            "v7",
+            "v8",
+            "v9",
+            "v10",
+            "v11",
+            "v12",
+            "v13",
+            "v14",
+            "v15",
+            "v16",
+            "v17",
+            "v18",
+            "v19",
+            "v20",
+            "v21",
+            "v22",
+            "v23",
+            "v24"
+          ]
+        }
+      }
+    },
+    "value": {
+      "e": "v25"
+    }
+  },
+  {
+    "name": "a short enum names every value",
+    "schema": {
+      "enum": [
+        "a",
+        "b"
+      ]
+    },
+    "value": "c"
+  },
+  {
+    "name": "contains with the default bounds",
+    "schema": {
+      "type": "array",
+      "contains": {
+        "type": "number"
+      }
+    },
+    "value": [
+      "a"
+    ]
+  },
+  {
+    "name": "contains with minContains",
+    "schema": {
+      "type": "array",
+      "contains": {
+        "type": "number"
+      },
+      "minContains": 2
+    },
+    "value": [
+      "a",
+      1
+    ]
+  },
+  {
+    "name": "contains with maxContains 0",
+    "schema": {
+      "type": "array",
+      "contains": {
+        "type": "string"
+      },
+      "minContains": 0,
+      "maxContains": 0
+    },
+    "value": [
+      "a"
+    ]
+  },
+  {
+    "name": "contains between two bounds",
+    "schema": {
+      "type": "array",
+      "contains": {
+        "type": "number"
+      },
+      "minContains": 1,
+      "maxContains": 3
+    },
+    "value": []
+  },
+  {
+    "name": "a oneOf failure goes to the branch declaring most of the object's properties",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "where": {
+          "$ref": "#/$defs/F"
+        }
+      },
+      "$defs": {
+        "F": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "eq": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "eq"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "and": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/F"
+                  }
+                }
+              },
+              "required": [
+                "and"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "value": {
+      "where": {
+        "and": [
+          {
+            "field": "a",
+            "eq": 1,
+            "x": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "the same reference at two paths is explained at each path",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/$defs/P"
+        },
+        "b": {
+          "$ref": "#/$defs/P"
+        }
+      },
+      "$defs": {
+        "P": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "a": {
+        "n": "x"
+      },
+      "b": {
+        "n": "x"
+      }
+    }
+  },
+  {
+    "name": "a oneOf matching more than one alternative",
+    "schema": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "value": 1
+  },
+  {
+    "name": "an anyOf matching none blames its first branch",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "value": 1
+  },
+  {
+    "name": "type names in the message",
+    "schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "value": 1
+  },
+  {
+    "name": "a type list holding a non-string",
+    "schema": {
+      "type": [
+        "string",
+        1
+      ]
+    },
+    "value": true
+  },
+  {
+    "name": "a declared type of null joins to an empty name",
+    "schema": {
+      "type": null
+    },
+    "value": 1
+  },
+  {
+    "name": "an unknown type name matches nothing",
+    "schema": {
+      "type": "constructor"
+    },
+    "value": 1
+  },
+  {
+    "name": "a float is a number, an integer is an integer",
+    "schema": {
+      "type": "integer"
+    },
+    "value": 1.5
+  },
+  {
+    "name": "string lengths count code points",
+    "schema": {
+      "type": "string",
+      "minLength": 2
+    },
+    "value": "😀"
+  },
+  {
+    "name": "a fractional length bound keeps its fraction in the message",
+    "schema": {
+      "type": "string",
+      "minLength": 1.5
+    },
+    "value": "a"
+  },
+  {
+    "name": "a maxLength in code points",
+    "schema": {
+      "type": "string",
+      "maxLength": 1
+    },
+    "value": "😀😀"
+  },
+  {
+    "name": "a pattern that does not match",
+    "schema": {
+      "type": "string",
+      "pattern": "^a+$"
+    },
+    "value": "b"
+  },
+  {
+    "name": "a format that does not hold",
+    "schema": {
+      "type": "string",
+      "format": "email"
+    },
+    "options": {
+      "formats": true
+    },
+    "value": "not an email"
+  },
+  {
+    "name": "numeric bounds and a truncated decimal",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "minimum": {
+          "minimum": 1
+        },
+        "maximum": {
+          "maximum": 1.5
+        },
+        "exclusiveMinimum": {
+          "exclusiveMinimum": 0
+        },
+        "exclusiveMaximum": {
+          "exclusiveMaximum": 1
+        },
+        "multipleOf": {
+          "multipleOf": 7
+        }
+      }
+    },
+    "value": {
+      "minimum": 0,
+      "maximum": 2,
+      "exclusiveMinimum": 0,
+      "exclusiveMaximum": 1,
+      "multipleOf": 10
+    }
+  },
+  {
+    "name": "a bound below one in exponential notation",
+    "schema": {
+      "minimum": 1e-07
+    },
+    "value": 0
+  },
+  {
+    "name": "a small multiple of keeps its exponent",
+    "schema": {
+      "multipleOf": 3e-07
+    },
+    "value": 1e-06
+  },
+  {
+    "name": "a maximum at 1e21 is written with an exponent",
+    "schema": {
+      "maximum": 1e+21
+    },
+    "value": 1e+300
+  },
+  {
+    "name": "const values as JSON",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "const": 1
+        },
+        "float": {
+          "const": 1.0
+        },
+        "object": {
+          "const": {
+            "a": [
+              1,
+              2.5
+            ]
+          }
+        },
+        "text": {
+          "const": "a\"b"
+        },
+        "big": {
+          "const": 1e+21
+        }
+      }
+    },
+    "value": {
+      "number": 2,
+      "float": 2,
+      "object": null,
+      "text": "",
+      "big": 0
+    }
+  },
+  {
+    "name": "allOf reports each failing part",
+    "schema": {
+      "allOf": [
+        {
+          "type": "object"
+        },
+        {
+          "minProperties": 2
+        }
+      ]
+    },
+    "value": {}
+  },
+  {
+    "name": "not reports a value that matches",
+    "schema": {
+      "not": {
+        "type": "string"
+      }
+    },
+    "value": "a"
+  },
+  {
+    "name": "if picks then",
+    "schema": {
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "minLength": 5
+      },
+      "else": {
+        "type": "number"
+      }
+    },
+    "value": "ab"
+  },
+  {
+    "name": "if picks else",
+    "schema": {
+      "if": {
+        "type": "string"
+      },
+      "then": {
+        "minLength": 5
+      },
+      "else": {
+        "type": "number"
+      }
+    },
+    "value": true
+  },
+  {
+    "name": "a false schema allows nothing",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a": false
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "object extras: property names and counts",
+    "schema": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z]+$"
+      },
+      "minProperties": 2,
+      "maxProperties": 2
+    },
+    "value": {
+      "A": 1
+    }
+  },
+  {
+    "name": "dependentRequired names the trigger",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "credit": [
+          "billing"
+        ]
+      }
+    },
+    "value": {
+      "credit": 1
+    }
+  },
+  {
+    "name": "dependencies in draft 2020-12, both shapes",
+    "schema": {
+      "type": "object",
+      "dependencies": {
+        "a": [
+          "b"
+        ],
+        "c": {
+          "required": [
+            "d"
+          ]
+        }
+      }
+    },
+    "value": {
+      "a": 1,
+      "c": 2
+    }
+  },
+  {
+    "name": "dependentSchemas",
+    "schema": {
+      "type": "object",
+      "dependentSchemas": {
+        "a": {
+          "required": [
+            "b"
+          ]
+        }
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "array counts and uniqueness",
+    "schema": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "value": [
+      1,
+      1
+    ]
+  },
+  {
+    "name": "a draft 7 tuple with additionalItems",
+    "schema": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ],
+      "additionalItems": {
+        "type": "number"
+      }
+    },
+    "options": {
+      "draft": "7"
+    },
+    "value": [
+      1,
+      "a"
+    ]
+  },
+  {
+    "name": "prefixItems with a rest schema",
+    "schema": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string"
+        }
+      ],
+      "items": {
+        "type": "number"
+      }
+    },
+    "value": [
+      1,
+      "a"
+    ]
+  },
+  {
+    "name": "draft 7 has no prefixItems, items is the only shape",
+    "schema": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string"
+        }
+      ],
+      "items": {
+        "type": "number"
+      }
+    },
+    "options": {
+      "draft": "7"
+    },
+    "value": [
+      "a",
+      "b"
+    ]
+  },
+  {
+    "name": "draft 7 lets $ref override its siblings",
+    "schema": {
+      "definitions": {
+        "s": {
+          "type": "string"
+        }
+      },
+      "$ref": "#/definitions/s",
+      "maxLength": 1
+    },
+    "options": {
+      "draft": "7"
+    },
+    "value": 5
+  },
+  {
+    "name": "a $ref into a registered document",
+    "schema": {
+      "$ref": "https://example.com/point.json"
+    },
+    "options": {
+      "schemas": {
+        "https://example.com/point.json": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "x"
+          ]
+        }
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "a failing $dynamicRef",
+    "schema": {
+      "$defs": {
+        "n": {
+          "$dynamicAnchor": "n",
+          "type": "integer"
+        }
+      },
+      "$ref": "#/$defs/n",
+      "$dynamicRef": "#n"
+    },
+    "value": "x"
+  },
+  {
+    "name": "unevaluatedProperties inside a union",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "a"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "b"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "value": {
+      "b": 1,
+      "extra": 2
+    }
+  },
+  {
+    "name": "unevaluatedItems after prefixItems",
+    "schema": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string"
+        }
+      ],
+      "unevaluatedItems": {
+        "type": "number"
+      }
+    },
+    "value": [
+      "a",
+      "b"
+    ]
+  },
+  {
+    "name": "an empty object against an empty object schema",
+    "schema": {},
+    "value": {}
+  },
+  {
+    "name": "minProperties and maxProperties in words",
+    "schema": {
+      "type": "object",
+      "minProperties": 2
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a deep path through arrays and objects",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        }
+      }
+    },
+    "value": {
+      "list": [
+        {
+          "name": "a"
+        },
+        {}
+      ]
+    }
+  },
+  {
+    "name": "a failing $dynamicRef alone",
+    "schema": {
+      "$defs": {
+        "n": {
+          "$dynamicAnchor": "n",
+          "type": "integer"
+        }
+      },
+      "$dynamicRef": "#n"
+    },
+    "value": "x"
+  },
+  {
+    "name": "a $ref through an $anchor",
+    "schema": {
+      "$defs": {
+        "point": {
+          "$anchor": "point",
+          "type": "object",
+          "required": [
+            "x"
+          ]
+        }
+      },
+      "$ref": "#point"
+    },
+    "value": {}
+  },
+  {
+    "name": "unevaluatedProperties given a schema, not false",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string"
+        }
+      },
+      "unevaluatedProperties": {
+        "type": "number"
+      }
+    },
+    "value": {
+      "a": "x",
+      "b": "y"
+    }
+  },
+  {
+    "name": "patternProperties with additionalProperties",
+    "schema": {
+      "type": "object",
+      "patternProperties": {
+        "^s_": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "value": {
+      "s_a": 1,
+      "other": "x"
+    }
+  },
+  {
+    "name": "dependencies overrides dependentRequired for the same key, keeping its place",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "a": [
+          "y"
+        ],
+        "b": [
+          "z"
+        ]
+      },
+      "dependencies": {
+        "a": [
+          "x"
+        ]
+      }
+    },
+    "value": {
+      "a": 1,
+      "b": 2
+    }
+  },
+  {
+    "name": "dependentRequired with a non-string entry",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "a": [
+          "b",
+          1
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "an empty type list joins to an empty name",
+    "schema": {
+      "type": []
+    },
+    "value": 1
+  },
+  {
+    "name": "an enum of objects and arrays",
+    "schema": {
+      "enum": [
+        {
+          "a": 1
+        },
+        [
+          1,
+          2
+        ],
+        null,
+        true
+      ]
+    },
+    "value": "x"
+  },
+  {
+    "name": "const text escaping",
+    "schema": {
+      "const": "line\nbreak\t\"quoted\u0001"
+    },
+    "value": "other"
+  },
+  {
+    "name": "a const beyond the double range",
+    "schema": {
+      "const": 9007199254740993
+    },
+    "value": 0
+  },
+  {
+    "name": "a maximum beyond the double range",
+    "schema": {
+      "maximum": 9007199254740993
+    },
+    "value": 1e+300
+  },
+  {
+    "name": "decimal bounds and a decimal multiple",
+    "schema": {
+      "minimum": 0.1,
+      "multipleOf": 0.1
+    },
+    "value": 0.05
+  },
+  {
+    "name": "a multiple that only fails in exact decimals",
+    "schema": {
+      "multipleOf": 0.1
+    },
+    "value": 0.30000000000000004
+  },
+  {
+    "name": "a length bound below one",
+    "schema": {
+      "type": "string",
+      "minLength": 0.5
+    },
+    "value": ""
+  },
+  {
+    "name": "items: false under draft 2020-12",
+    "schema": {
+      "type": "array",
+      "items": false
+    },
+    "value": [
+      1
+    ]
+  },
+  {
+    "name": "if without then or else reports nothing",
+    "schema": {
+      "if": {
+        "type": "string"
+      }
+    },
+    "value": 1
+  },
+  {
+    "name": "the deeper branch is blamed when both declare the same",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "object",
+              "properties": {
+                "b": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "a"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "value": {
+      "a": {
+        "b": 1
+      }
+    }
+  },
+  {
+    "name": "a recursive union explains a deep value",
+    "schema": {
+      "$defs": {
+        "node": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/node"
+              }
+            }
+          ]
+        }
+      },
+      "$ref": "#/$defs/node"
+    },
+    "value": [
+      "a",
+      [
+        1
+      ]
+    ]
+  },
+  {
+    "name": "maxContains with a matching count too high",
+    "schema": {
+      "type": "array",
+      "contains": {
+        "type": "number"
+      },
+      "maxContains": 1
+    },
+    "value": [
+      1,
+      2
+    ]
+  },
+  {
+    "name": "minItems in words",
+    "schema": {
+      "type": "array",
+      "minItems": 3
+    },
+    "value": [
+      1
+    ]
+  },
+  {
+    "name": "the same $ref twice in a union is explained through the memo",
+    "schema": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/P"
+        },
+        {
+          "$ref": "#/$defs/P"
+        }
+      ],
+      "$defs": {
+        "P": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "n": "x"
+    }
+  },
+  {
+    "name": "an empty anyOf matches no alternative",
+    "schema": {
+      "anyOf": []
+    },
+    "value": 1
+  },
+  {
+    "name": "an empty oneOf matches no alternative",
+    "schema": {
+      "oneOf": []
+    },
+    "value": 1
+  },
+  {
+    "name": "an empty anyOf inside a property is reported at the property",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "anyOf": []
+        }
+      }
+    },
+    "value": {
+      "x": 1
+    }
+  },
+  {
+    "name": "an empty allOf allows everything",
+    "schema": {
+      "allOf": []
+    },
+    "value": 1
+  },
+  {
+    "name": "an empty anyOf reports after the properties that failed",
+    "schema": {
+      "type": "object",
+      "anyOf": [],
+      "properties": {
+        "a": {
+          "type": "string"
+        }
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "an empty enum matches no value",
+    "schema": {
+      "enum": []
+    },
+    "value": 1
+  },
+  {
+    "name": "an empty required and an empty properties allow everything",
+    "schema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "properties named like numbers are explained in JS key order",
+    "schema": {
+      "properties": {
+        "b": {
+          "type": "string"
+        },
+        "2": {
+          "type": "string"
+        },
+        "1": {
+          "type": "string"
+        }
+      }
+    },
+    "value": {
+      "b": 1,
+      "2": 1,
+      "1": 1
+    }
+  },
+  {
+    "name": "unknown fields named like numbers are reported in JS key order",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "value": {
+      "b": 1,
+      "2": 1,
+      "1": 1
+    }
+  },
+  {
+    "name": "required names keep the order of the required list, not JS key order",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "1": {
+          "type": "string"
+        },
+        "b": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "b",
+        "1"
+      ]
+    },
+    "value": {}
+  },
+  {
+    "name": "only keys that look like array indices sort ahead",
+    "schema": {
+      "properties": {
+        "b": {
+          "type": "string"
+        },
+        "4294967295": {
+          "type": "string"
+        },
+        "01": {
+          "type": "string"
+        },
+        "1.0": {
+          "type": "string"
+        },
+        "1e2": {
+          "type": "string"
+        },
+        "4294967294": {
+          "type": "string"
+        },
+        "2": {
+          "type": "string"
+        }
+      }
+    },
+    "value": {
+      "b": 1,
+      "4294967295": 1,
+      "01": 1,
+      "1.0": 1,
+      "1e2": 1,
+      "4294967294": 1,
+      "2": 1
+    }
+  },
+  {
+    "name": "an enum of objects writes their keys in JS key order",
+    "schema": {
+      "enum": [
+        {
+          "b": 1,
+          "2": 2
+        }
+      ]
+    },
+    "value": "x"
+  },
+  {
+    "name": "a const object writes its keys in JS key order",
+    "schema": {
+      "const": {
+        "b": 1,
+        "10": 2,
+        "2": 3
+      }
+    },
+    "value": "x"
+  },
+  {
+    "name": "dependentRequired entries are explained in JS key order",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "b": [
+          "x"
+        ],
+        "2": [
+          "y"
+        ],
+        "1": [
+          "z"
+        ]
+      }
+    },
+    "value": {
+      "b": 1,
+      "2": 1,
+      "1": 1
+    }
+  },
+  {
+    "name": "a tag named like a number is the one JS sees first",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "x"
+            },
+            "1": {
+              "const": "a"
+            }
+          },
+          "required": [
+            "1"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "y"
+            },
+            "1": {
+              "const": "b"
+            }
+          },
+          "required": [
+            "1"
+          ]
+        }
+      ]
+    },
+    "value": {
+      "1": "a",
+      "kind": "nope"
+    }
+  },
+  {
+    "name": "patternProperties are applied in JS key order",
+    "schema": {
+      "type": "object",
+      "patternProperties": {
+        "^1": {
+          "type": "number"
+        },
+        "1": {
+          "type": "string"
+        }
+      }
+    },
+    "value": {
+      "1": false
+    }
+  },
+  {
+    "name": "a nested object explains its fields in JS key order",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "o": {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "string"
+            },
+            "1": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "value": {
+      "o": {
+        "b": 1,
+        "1": 1,
+        "x": true
+      }
+    }
+  },
+  {
+    "name": "a number past the double range keeps pi's last digit",
+    "schema": {
+      "enum": [
+        123456789012345680000
+      ]
+    },
+    "value": "x"
+  },
+  {
+    "name": "a decimal with eighteen digits keeps pi's last digit",
+    "schema": {
+      "enum": [
+        0.013009999999999999
+      ]
+    },
+    "value": "x"
+  },
+  {
+    "name": "a maximum past the double range keeps pi's last digit",
+    "schema": {
+      "maximum": 123456789012345680000
+    },
+    "value": 1e+21
+  },
+  {
+    "name": "a multipleOf with eighteen digits keeps its value",
+    "schema": {
+      "multipleOf": 0.013009999999999999
+    },
+    "value": 0.01301
+  },
+  {
+    "name": "an integer above 2^53 is written as its double",
+    "schema": {
+      "enum": [
+        9007199254740993
+      ]
+    },
+    "value": "x"
+  },
+  {
+    "name": "an integer above 2^53 compares as its double",
+    "schema": {
+      "enum": [
+        9007199254740993
+      ]
+    },
+    "value": 9007199254740992
+  },
+  {
+    "name": "a const past the double range keeps pi's last digit",
+    "schema": {
+      "const": 123456789012345680000
+    },
+    "value": 1
+  },
+  {
+    "name": "a maximum written with an exponent keeps its exponent",
+    "schema": {
+      "maximum": 1e+21
+    },
+    "value": 1e+22
+  },
+  {
+    "name": "a minimum with a long fraction keeps every digit",
+    "schema": {
+      "minimum": 0.30000000000000004
+    },
+    "value": 0.3
+  },
+  {
+    "name": "dependencies sort before dependentRequired by JS key order",
+    "schema": {
+      "dependentRequired": {
+        "b": [
+          "x"
+        ]
+      },
+      "dependencies": {
+        "1": [
+          "y"
+        ]
+      }
+    },
+    "value": {
+      "b": 1,
+      "1": 1
+    }
+  },
+  {
+    "name": "a non-string dependentRequired entry makes the value invalid",
+    "schema": {
+      "dependentRequired": {
+        "a": [
+          1
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a boolean dependentRequired entry names the key it stringifies to",
+    "schema": {
+      "dependentRequired": {
+        "a": [
+          true
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a malformed $defs target writes its number as JS does",
+    "schema": {
+      "$ref": "#/$defs/x",
+      "$defs": {
+        "x": 1.0
+      }
+    },
+    "value": 1
+  },
+  {
+    "name": "a malformed dependent property writes its number as JS does",
+    "schema": {
+      "additionalProperties": 1.0
+    },
+    "value": {}
+  },
+  {
+    "name": "malformed properties are reported in JS key order",
+    "schema": {
+      "properties": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "malformed patternProperties are reported in JS key order",
+    "schema": {
+      "patternProperties": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "malformed dependentSchemas are reported in JS key order",
+    "schema": {
+      "dependentSchemas": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "malformed dependencies are reported in JS key order",
+    "schema": {
+      "dependencies": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "malformed properties under unevaluatedProperties are reported in JS key order",
+    "schema": {
+      "unevaluatedProperties": false,
+      "properties": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "a malformed target under unevaluatedProperties writes its number as JS does",
+    "schema": {
+      "unevaluatedProperties": false,
+      "$defs": {
+        "x": 1.0
+      },
+      "properties": {
+        "a": {
+          "$ref": "#/$defs/x"
+        }
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a dependentRequired entry that is an array names the joined key",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "a": [
+          [
+            1,
+            2
+          ]
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a dependentRequired entry that is an object names the object key",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "a": [
+          {
+            "b": 1
+          }
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "a dependentRequired entry that is null names the null key",
+    "schema": {
+      "type": "object",
+      "dependentRequired": {
+        "a": [
+          null
+        ]
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "malformed dependentSchemas under unevaluatedProperties are reported in JS key order",
+    "schema": {
+      "unevaluatedProperties": false,
+      "dependentSchemas": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {}
+  },
+  {
+    "name": "draft 7 dependencies report malformed schemas in JS key order",
+    "schema": {
+      "dependencies": {
+        "b": 5,
+        "1": 6
+      }
+    },
+    "value": {},
+    "options": {
+      "draft": "7"
+    }
+  }
+]

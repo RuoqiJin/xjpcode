@@ -1,0 +1,141 @@
+[package]
+name = "xjpcode-coding-agent"
+version = "0.1.0"
+edition = "2021"
+
+# 对应上游 `packages/coding-agent/src/index.ts`（crate 根）。
+[lib]
+path = "src/index.rs"
+
+[dependencies]
+xjpcode-agent = { path = "../agent" }
+xjpcode-ai = { path = "../ai" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+# 系统提示词的片段要按插入顺序渲染（上游 `Object.entries`）。
+indexmap = { version = "2", features = ["serde"] }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "process", "io-util", "fs", "sync", "time"] }
+# 命令输出的两路读取与文件分块读取。
+futures = "0.3"
+# `edit-diff.ts` 里的 `Diff.diffLines` 与 `structuredPatch`（上游用 jsdiff）。
+similar = "2"
+# `normalizeForFuzzyMatch` 的 NFKC（上游 `String.prototype.normalize`）。
+unicode-normalization = "0.1"
+# 读图片时把文件内容写成 `ImageContent.data`。
+base64 = "0.22"
+# 路径比较与 `~` 展开。
+dirs = "6"
+# 技能与规矩文件的忽略规则（上游用 `ignore` 库）。
+ignore = "0.4"
+# 技能 frontmatter 的 YAML（上游用 `yaml` 包）。
+serde_yaml = "0.9"
+# 会话 id 与条目 id（上游 `uuidv7` / `randomUUID`）。
+uuid = { version = "1", features = ["v4", "v7"] }
+# 会话条目与文件名的 ISO 时间戳（上游 `Date.toISOString()`）。
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+[target.'cfg(unix)'.dependencies]
+# 进程组信号（上游用 `process.kill(-pid, "SIGKILL")`）。
+libc = "0.2"
+
+[dev-dependencies]
+tempfile = "3"
+base64 = "0.22"
+futures = "0.3"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "time", "sync"] }
+
+[[test]]
+name = "agent_session"
+path = "test/agent_session.rs"
+
+[[test]]
+name = "bash_regressions"
+path = "test/bash_regressions.rs"
+
+[[test]]
+name = "compaction"
+path = "test/compaction.rs"
+
+[[test]]
+name = "edit_diff"
+path = "test/edit_diff.rs"
+
+[[test]]
+name = "edit_tool"
+path = "test/edit_tool.rs"
+
+[[test]]
+name = "frontmatter"
+path = "test/frontmatter.rs"
+
+[[test]]
+name = "file_mutation_queue"
+path = "test/file_mutation_queue.rs"
+
+[[test]]
+name = "messages"
+path = "test/messages.rs"
+
+[[test]]
+name = "path_utils"
+path = "test/path_utils.rs"
+
+[[test]]
+name = "paths"
+path = "test/paths.rs"
+
+[[test]]
+name = "resolve_config_value"
+path = "test/resolve_config_value.rs"
+
+[[test]]
+name = "auth_storage"
+path = "test/auth_storage.rs"
+
+[[test]]
+name = "model_setup"
+path = "test/model_setup.rs"
+
+[[test]]
+name = "read_streaming"
+path = "test/read_streaming.rs"
+
+[[test]]
+name = "resource_loader"
+path = "test/resource_loader.rs"
+
+[[test]]
+name = "source_info"
+path = "test/source_info.rs"
+
+[[test]]
+name = "skills"
+path = "test/skills.rs"
+
+[[test]]
+name = "session_manager"
+path = "test/session_manager.rs"
+
+[[test]]
+name = "system_prompt"
+path = "test/system_prompt.rs"
+
+[[test]]
+name = "system_prompt_updates"
+path = "test/system_prompt_updates.rs"
+
+[[test]]
+name = "shell_kill_process_tree"
+path = "test/shell_kill_process_tree.rs"
+
+[[test]]
+name = "tool_system_prompt"
+path = "test/tool_system_prompt.rs"
+
+[[test]]
+name = "tools"
+path = "test/tools.rs"
+
+[[test]]
+name = "truncate"
+path = "test/truncate.rs"

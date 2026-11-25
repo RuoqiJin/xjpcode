@@ -1,0 +1,1455 @@
+[
+  {
+    "name": "missing required, out of range and unknown field, in that order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/path",
+        "keyword": "required",
+        "message": "missing"
+      },
+      {
+        "path": "/offset",
+        "keyword": "minimum",
+        "message": "expected >= 1"
+      },
+      {
+        "path": "/extra",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "a valid value has no errors",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "a tagged union reports the branch its tag selects",
+    "check": false,
+    "errors": [
+      {
+        "path": "/width",
+        "keyword": "minimum",
+        "message": "expected >= 0"
+      }
+    ]
+  },
+  {
+    "name": "an unknown tag is reported at the tag, with the tags joined",
+    "check": false,
+    "errors": [
+      {
+        "path": "/kind",
+        "keyword": "anyOf",
+        "message": "expected one of [\"text\",\"image\"]"
+      }
+    ]
+  },
+  {
+    "name": "a tag made of numbers, hit by a number written as a float",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "paths escape ~ and / as JSON Pointer does",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a~1b~0c",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "a $ref is followed into the referenced schema",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1/x",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "a recursive schema reports the deepest missing field",
+    "check": false,
+    "errors": [
+      {
+        "path": "/children/0/children/0/value",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "a relative root $id applies once",
+    "check": false,
+    "errors": [
+      {
+        "path": "/count",
+        "keyword": "type",
+        "message": "expected integer, got string"
+      }
+    ]
+  },
+  {
+    "name": "unevaluatedProperties under a relative root $id",
+    "check": false,
+    "errors": [
+      {
+        "path": "/extra",
+        "keyword": "unevaluatedProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "unevaluatedItems under a relative root $id",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "unevaluatedItems",
+        "message": "unexpected item"
+      }
+    ]
+  },
+  {
+    "name": "errors under nested resources with a relative $id",
+    "check": false,
+    "errors": [
+      {
+        "path": "/extra",
+        "keyword": "unevaluatedProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "a union branch with its own $id blames its own type",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected integer, got object"
+      }
+    ]
+  },
+  {
+    "name": "an unresolved $ref rejects only values at its place",
+    "check": false,
+    "errors": [
+      {
+        "path": "/t",
+        "keyword": "$ref",
+        "message": "unresolved reference #/definitions/Missing"
+      }
+    ]
+  },
+  {
+    "name": "an unresolved document reference rejects only values at its place",
+    "check": false,
+    "errors": [
+      {
+        "path": "/t",
+        "keyword": "$ref",
+        "message": "unresolved reference https://example.com/schemas/t.json"
+      }
+    ]
+  },
+  {
+    "name": "a long enum names at most twenty values",
+    "check": false,
+    "errors": [
+      {
+        "path": "/e",
+        "keyword": "enum",
+        "message": "expected one of [\"v0\",\"v1\",\"v2\",\"v3\",\"v4\",\"v5\",\"v6\",\"v7\",\"v8\",\"v9\",\"v10\",\"v11\",\"v12\",\"v13\",\"v14\",\"v15\",\"v16\",\"v17\",\"v18\",\"v19\", ... and 5 more]"
+      }
+    ]
+  },
+  {
+    "name": "a short enum names every value",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [\"a\",\"b\"]"
+      }
+    ]
+  },
+  {
+    "name": "contains with the default bounds",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "contains",
+        "message": "expected at least 1 matching item"
+      }
+    ]
+  },
+  {
+    "name": "contains with minContains",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "contains",
+        "message": "expected at least 2 matching items"
+      }
+    ]
+  },
+  {
+    "name": "contains with maxContains 0",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "contains",
+        "message": "expected at most 0 matching items"
+      }
+    ]
+  },
+  {
+    "name": "contains between two bounds",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "contains",
+        "message": "expected between 1 and 3 matching items"
+      }
+    ]
+  },
+  {
+    "name": "a oneOf failure goes to the branch declaring most of the object's properties",
+    "check": false,
+    "errors": [
+      {
+        "path": "/where/and/0/eq",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/where/and/0/x",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "the same reference at two paths is explained at each path",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a/n",
+        "keyword": "type",
+        "message": "expected integer, got string"
+      },
+      {
+        "path": "/b/n",
+        "keyword": "type",
+        "message": "expected integer, got string"
+      }
+    ]
+  },
+  {
+    "name": "a oneOf matching more than one alternative",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "oneOf",
+        "message": "matches more than one alternative"
+      }
+    ]
+  },
+  {
+    "name": "an anyOf matching none blames its first branch",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "type names in the message",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected string or null, got integer"
+      }
+    ]
+  },
+  {
+    "name": "a type list holding a non-string",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected string or 1, got boolean"
+      }
+    ]
+  },
+  {
+    "name": "a declared type of null joins to an empty name",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected , got integer"
+      }
+    ]
+  },
+  {
+    "name": "an unknown type name matches nothing",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected constructor, got integer"
+      }
+    ]
+  },
+  {
+    "name": "a float is a number, an integer is an integer",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected integer, got number"
+      }
+    ]
+  },
+  {
+    "name": "string lengths count code points",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minLength",
+        "message": "expected at least 2 characters"
+      }
+    ]
+  },
+  {
+    "name": "a fractional length bound keeps its fraction in the message",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minLength",
+        "message": "expected at least 1.5 characters"
+      }
+    ]
+  },
+  {
+    "name": "a maxLength in code points",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "maxLength",
+        "message": "expected at most 1 characters"
+      }
+    ]
+  },
+  {
+    "name": "a pattern that does not match",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "pattern",
+        "message": "expected to match ^a+$"
+      }
+    ]
+  },
+  {
+    "name": "a format that does not hold",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "format",
+        "message": "expected format email"
+      }
+    ]
+  },
+  {
+    "name": "numeric bounds and a truncated decimal",
+    "check": false,
+    "errors": [
+      {
+        "path": "/minimum",
+        "keyword": "minimum",
+        "message": "expected >= 1"
+      },
+      {
+        "path": "/maximum",
+        "keyword": "maximum",
+        "message": "expected <= 1.5"
+      },
+      {
+        "path": "/exclusiveMinimum",
+        "keyword": "exclusiveMinimum",
+        "message": "expected > 0"
+      },
+      {
+        "path": "/exclusiveMaximum",
+        "keyword": "exclusiveMaximum",
+        "message": "expected < 1"
+      },
+      {
+        "path": "/multipleOf",
+        "keyword": "multipleOf",
+        "message": "expected a multiple of 7"
+      }
+    ]
+  },
+  {
+    "name": "a bound below one in exponential notation",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minimum",
+        "message": "expected >= 1e-7"
+      }
+    ]
+  },
+  {
+    "name": "a small multiple of keeps its exponent",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "multipleOf",
+        "message": "expected a multiple of 3e-7"
+      }
+    ]
+  },
+  {
+    "name": "a maximum at 1e21 is written with an exponent",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "maximum",
+        "message": "expected <= 1e+21"
+      }
+    ]
+  },
+  {
+    "name": "const values as JSON",
+    "check": false,
+    "errors": [
+      {
+        "path": "/number",
+        "keyword": "const",
+        "message": "expected 1"
+      },
+      {
+        "path": "/float",
+        "keyword": "const",
+        "message": "expected 1"
+      },
+      {
+        "path": "/object",
+        "keyword": "const",
+        "message": "expected {\"a\":[1,2.5]}"
+      },
+      {
+        "path": "/text",
+        "keyword": "const",
+        "message": "expected \"a\\\"b\""
+      },
+      {
+        "path": "/big",
+        "keyword": "const",
+        "message": "expected 1e+21"
+      }
+    ]
+  },
+  {
+    "name": "allOf reports each failing part",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minProperties",
+        "message": "expected at least 2 properties"
+      }
+    ]
+  },
+  {
+    "name": "not reports a value that matches",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "not",
+        "message": "must not match the schema in not"
+      }
+    ]
+  },
+  {
+    "name": "if picks then",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minLength",
+        "message": "expected at least 5 characters"
+      }
+    ]
+  },
+  {
+    "name": "if picks else",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected number, got boolean"
+      }
+    ]
+  },
+  {
+    "name": "a false schema allows nothing",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a",
+        "keyword": "false",
+        "message": "no value is allowed here"
+      }
+    ]
+  },
+  {
+    "name": "object extras: property names and counts",
+    "check": false,
+    "errors": [
+      {
+        "path": "/A",
+        "keyword": "propertyNames",
+        "message": "invalid property name"
+      },
+      {
+        "path": "",
+        "keyword": "minProperties",
+        "message": "expected at least 2 properties"
+      }
+    ]
+  },
+  {
+    "name": "dependentRequired names the trigger",
+    "check": false,
+    "errors": [
+      {
+        "path": "/billing",
+        "keyword": "dependentRequired",
+        "message": "required when credit is present"
+      }
+    ]
+  },
+  {
+    "name": "dependencies in draft 2020-12, both shapes",
+    "check": false,
+    "errors": [
+      {
+        "path": "/b",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      },
+      {
+        "path": "/d",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "dependentSchemas",
+    "check": false,
+    "errors": [
+      {
+        "path": "/b",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "array counts and uniqueness",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "uniqueItems",
+        "message": "expected unique items"
+      }
+    ]
+  },
+  {
+    "name": "a draft 7 tuple with additionalItems",
+    "check": false,
+    "errors": [
+      {
+        "path": "/0",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "prefixItems with a rest schema",
+    "check": false,
+    "errors": [
+      {
+        "path": "/0",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "draft 7 has no prefixItems, items is the only shape",
+    "check": false,
+    "errors": [
+      {
+        "path": "/0",
+        "keyword": "type",
+        "message": "expected number, got string"
+      },
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "draft 7 lets $ref override its siblings",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "a $ref into a registered document",
+    "check": false,
+    "errors": [
+      {
+        "path": "/x",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "a failing $dynamicRef",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected integer, got string"
+      }
+    ]
+  },
+  {
+    "name": "unevaluatedProperties inside a union",
+    "check": false,
+    "errors": [
+      {
+        "path": "/extra",
+        "keyword": "unevaluatedProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "unevaluatedItems after prefixItems",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "an empty object against an empty object schema",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "minProperties and maxProperties in words",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minProperties",
+        "message": "expected at least 2 properties"
+      }
+    ]
+  },
+  {
+    "name": "a deep path through arrays and objects",
+    "check": false,
+    "errors": [
+      {
+        "path": "/list/1/name",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "a failing $dynamicRef alone",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "$dynamicRef",
+        "message": "does not match the dynamically referenced schema"
+      }
+    ]
+  },
+  {
+    "name": "a $ref through an $anchor",
+    "check": false,
+    "errors": [
+      {
+        "path": "/x",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "unevaluatedProperties given a schema, not false",
+    "check": false,
+    "errors": [
+      {
+        "path": "/b",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "patternProperties with additionalProperties",
+    "check": false,
+    "errors": [
+      {
+        "path": "/s_a",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/other",
+        "keyword": "type",
+        "message": "expected number, got string"
+      }
+    ]
+  },
+  {
+    "name": "dependencies overrides dependentRequired for the same key, keeping its place",
+    "check": false,
+    "errors": [
+      {
+        "path": "/x",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      },
+      {
+        "path": "/z",
+        "keyword": "dependentRequired",
+        "message": "required when b is present"
+      }
+    ]
+  },
+  {
+    "name": "dependentRequired with a non-string entry",
+    "check": false,
+    "errors": [
+      {
+        "path": "/b",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      },
+      {
+        "path": "/1",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "an empty type list joins to an empty name",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "type",
+        "message": "expected , got integer"
+      }
+    ]
+  },
+  {
+    "name": "an enum of objects and arrays",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [{\"a\":1},[1,2],null,true]"
+      }
+    ]
+  },
+  {
+    "name": "const text escaping",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "const",
+        "message": "expected \"line\\nbreak\\t\\\"quoted\\u0001\""
+      }
+    ]
+  },
+  {
+    "name": "a const beyond the double range",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "const",
+        "message": "expected 9007199254740992"
+      }
+    ]
+  },
+  {
+    "name": "a maximum beyond the double range",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "maximum",
+        "message": "expected <= 9007199254740992"
+      }
+    ]
+  },
+  {
+    "name": "decimal bounds and a decimal multiple",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minimum",
+        "message": "expected >= 0.1"
+      },
+      {
+        "path": "",
+        "keyword": "multipleOf",
+        "message": "expected a multiple of 0.1"
+      }
+    ]
+  },
+  {
+    "name": "a multiple that only fails in exact decimals",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "multipleOf",
+        "message": "expected a multiple of 0.1"
+      }
+    ]
+  },
+  {
+    "name": "a length bound below one",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minLength",
+        "message": "expected at least 0.5 characters"
+      }
+    ]
+  },
+  {
+    "name": "items: false under draft 2020-12",
+    "check": false,
+    "errors": [
+      {
+        "path": "/0",
+        "keyword": "false",
+        "message": "no value is allowed here"
+      }
+    ]
+  },
+  {
+    "name": "if without then or else reports nothing",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "the deeper branch is blamed when both declare the same",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a/b",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "a recursive union explains a deep value",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1/0",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "maxContains with a matching count too high",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "contains",
+        "message": "expected between 1 and 1 matching items"
+      }
+    ]
+  },
+  {
+    "name": "minItems in words",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minItems",
+        "message": "expected at least 3 items"
+      }
+    ]
+  },
+  {
+    "name": "the same $ref twice in a union is explained through the memo",
+    "check": false,
+    "errors": [
+      {
+        "path": "/n",
+        "keyword": "type",
+        "message": "expected integer, got string"
+      }
+    ]
+  },
+  {
+    "name": "an empty anyOf matches no alternative",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "anyOf",
+        "message": "matches no alternative"
+      }
+    ]
+  },
+  {
+    "name": "an empty oneOf matches no alternative",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "oneOf",
+        "message": "matches no alternative"
+      }
+    ]
+  },
+  {
+    "name": "an empty anyOf inside a property is reported at the property",
+    "check": false,
+    "errors": [
+      {
+        "path": "/x",
+        "keyword": "anyOf",
+        "message": "matches no alternative"
+      }
+    ]
+  },
+  {
+    "name": "an empty allOf allows everything",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "an empty anyOf reports after the properties that failed",
+    "check": false,
+    "errors": [
+      {
+        "path": "/a",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "",
+        "keyword": "anyOf",
+        "message": "matches no alternative"
+      }
+    ]
+  },
+  {
+    "name": "an empty enum matches no value",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of []"
+      }
+    ]
+  },
+  {
+    "name": "an empty required and an empty properties allow everything",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "properties named like numbers are explained in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/2",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/b",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "unknown fields named like numbers are reported in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      },
+      {
+        "path": "/2",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      },
+      {
+        "path": "/b",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "required names keep the order of the required list, not JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/b",
+        "keyword": "required",
+        "message": "missing"
+      },
+      {
+        "path": "/1",
+        "keyword": "required",
+        "message": "missing"
+      }
+    ]
+  },
+  {
+    "name": "only keys that look like array indices sort ahead",
+    "check": false,
+    "errors": [
+      {
+        "path": "/2",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/4294967294",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/b",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/4294967295",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/01",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/1.0",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/1e2",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      }
+    ]
+  },
+  {
+    "name": "an enum of objects writes their keys in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [{\"2\":2,\"b\":1}]"
+      }
+    ]
+  },
+  {
+    "name": "a const object writes its keys in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "const",
+        "message": "expected {\"2\":3,\"10\":2,\"b\":1}"
+      }
+    ]
+  },
+  {
+    "name": "dependentRequired entries are explained in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/z",
+        "keyword": "dependentRequired",
+        "message": "required when 1 is present"
+      },
+      {
+        "path": "/y",
+        "keyword": "dependentRequired",
+        "message": "required when 2 is present"
+      },
+      {
+        "path": "/x",
+        "keyword": "dependentRequired",
+        "message": "required when b is present"
+      }
+    ]
+  },
+  {
+    "name": "a tag named like a number is the one JS sees first",
+    "check": false,
+    "errors": [
+      {
+        "path": "/kind",
+        "keyword": "const",
+        "message": "expected \"x\""
+      }
+    ]
+  },
+  {
+    "name": "patternProperties are applied in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected string, got boolean"
+      },
+      {
+        "path": "/1",
+        "keyword": "type",
+        "message": "expected number, got boolean"
+      }
+    ]
+  },
+  {
+    "name": "a nested object explains its fields in JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/o/1",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/o/b",
+        "keyword": "type",
+        "message": "expected string, got integer"
+      },
+      {
+        "path": "/o/x",
+        "keyword": "additionalProperties",
+        "message": "unknown field"
+      }
+    ]
+  },
+  {
+    "name": "a number past the double range keeps pi's last digit",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [123456789012345680000]"
+      }
+    ]
+  },
+  {
+    "name": "a decimal with eighteen digits keeps pi's last digit",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [0.013009999999999999]"
+      }
+    ]
+  },
+  {
+    "name": "a maximum past the double range keeps pi's last digit",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "maximum",
+        "message": "expected <= 123456789012345680000"
+      }
+    ]
+  },
+  {
+    "name": "a multipleOf with eighteen digits keeps its value",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "multipleOf",
+        "message": "expected a multiple of 0.013009999999999999"
+      }
+    ]
+  },
+  {
+    "name": "an integer above 2^53 is written as its double",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "enum",
+        "message": "expected one of [9007199254740992]"
+      }
+    ]
+  },
+  {
+    "name": "an integer above 2^53 compares as its double",
+    "check": true,
+    "errors": []
+  },
+  {
+    "name": "a const past the double range keeps pi's last digit",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "const",
+        "message": "expected 123456789012345680000"
+      }
+    ]
+  },
+  {
+    "name": "a maximum written with an exponent keeps its exponent",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "maximum",
+        "message": "expected <= 1e+21"
+      }
+    ]
+  },
+  {
+    "name": "a minimum with a long fraction keeps every digit",
+    "check": false,
+    "errors": [
+      {
+        "path": "",
+        "keyword": "minimum",
+        "message": "expected >= 0.30000000000000004"
+      }
+    ]
+  },
+  {
+    "name": "dependencies sort before dependentRequired by JS key order",
+    "check": false,
+    "errors": [
+      {
+        "path": "/y",
+        "keyword": "dependentRequired",
+        "message": "required when 1 is present"
+      },
+      {
+        "path": "/x",
+        "keyword": "dependentRequired",
+        "message": "required when b is present"
+      }
+    ]
+  },
+  {
+    "name": "a non-string dependentRequired entry makes the value invalid",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "a boolean dependentRequired entry names the key it stringifies to",
+    "check": false,
+    "errors": [
+      {
+        "path": "/true",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "a malformed $defs target writes its number as JS does",
+    "compileError": "A schema must be an object or a boolean, got 1"
+  },
+  {
+    "name": "a malformed dependent property writes its number as JS does",
+    "compileError": "A schema must be an object or a boolean, got 1"
+  },
+  {
+    "name": "malformed properties are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "malformed patternProperties are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "malformed dependentSchemas are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "malformed dependencies are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "malformed properties under unevaluatedProperties are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "a malformed target under unevaluatedProperties writes its number as JS does",
+    "compileError": "A schema must be an object or a boolean, got 1"
+  },
+  {
+    "name": "a dependentRequired entry that is an array names the joined key",
+    "check": false,
+    "errors": [
+      {
+        "path": "/1,2",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "a dependentRequired entry that is an object names the object key",
+    "check": false,
+    "errors": [
+      {
+        "path": "/[object Object]",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "a dependentRequired entry that is null names the null key",
+    "check": false,
+    "errors": [
+      {
+        "path": "/null",
+        "keyword": "dependentRequired",
+        "message": "required when a is present"
+      }
+    ]
+  },
+  {
+    "name": "malformed dependentSchemas under unevaluatedProperties are reported in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  },
+  {
+    "name": "draft 7 dependencies report malformed schemas in JS key order",
+    "compileError": "A schema must be an object or a boolean, got 6"
+  }
+]

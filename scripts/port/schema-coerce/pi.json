@@ -1,0 +1,599 @@
+[
+  {
+    "name": "a numeric string becomes a number",
+    "coerce": 42,
+    "parse": {
+      "ok": true,
+      "value": 42
+    }
+  },
+  {
+    "name": "an empty string becomes 0 for a number",
+    "coerce": 0,
+    "parse": {
+      "ok": true,
+      "value": 0
+    }
+  },
+  {
+    "name": "a padded exponent string becomes its number",
+    "coerce": 1000,
+    "parse": {
+      "ok": true,
+      "value": 1000
+    }
+  },
+  {
+    "name": "a hexadecimal string is a number in JS",
+    "coerce": 16,
+    "parse": {
+      "ok": true,
+      "value": 16
+    }
+  },
+  {
+    "name": "a binary string is a number in JS",
+    "coerce": 5,
+    "parse": {
+      "ok": true,
+      "value": 5
+    }
+  },
+  {
+    "name": "an octal string is a number in JS",
+    "coerce": 15,
+    "parse": {
+      "ok": true,
+      "value": 15
+    }
+  },
+  {
+    "name": "Infinity is not a finite number so the string stays",
+    "coerce": "Infinity",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "type",
+          "message": "expected number, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "a whitespace-only string becomes 0 in the conversion pass",
+    "coerce": 0,
+    "parse": {
+      "ok": true,
+      "value": 0
+    }
+  },
+  {
+    "name": "a bigint-like string becomes a number",
+    "coerce": 12,
+    "parse": {
+      "ok": true,
+      "value": 12
+    }
+  },
+  {
+    "name": "a bigint-like string beyond the safe range stays",
+    "coerce": "90071992547409910n",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "type",
+          "message": "expected number, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "a fractional string truncates for an integer",
+    "coerce": 1738213389080,
+    "parse": {
+      "ok": true,
+      "value": 1738213389080
+    }
+  },
+  {
+    "name": "a negative zero string becomes an integer zero",
+    "coerce": 0,
+    "parse": {
+      "ok": true,
+      "value": 0
+    }
+  },
+  {
+    "name": "an upper-case TRUE becomes a boolean",
+    "coerce": true,
+    "parse": {
+      "ok": true,
+      "value": true
+    }
+  },
+  {
+    "name": "a boolean string other than true and false stays",
+    "coerce": "2",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "type",
+          "message": "expected boolean, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "an upper-case NULL becomes null",
+    "coerce": null,
+    "parse": {
+      "ok": true,
+      "value": null
+    }
+  },
+  {
+    "name": "true becomes its text for a string",
+    "coerce": "true",
+    "parse": {
+      "ok": true,
+      "value": "true"
+    }
+  },
+  {
+    "name": "null becomes the text null for a string",
+    "coerce": "null",
+    "parse": {
+      "ok": true,
+      "value": "null"
+    }
+  },
+  {
+    "name": "an enum takes the member the value converts to",
+    "coerce": 2,
+    "parse": {
+      "ok": true,
+      "value": 2
+    }
+  },
+  {
+    "name": "a const takes a boolean converted to its text",
+    "coerce": "true",
+    "parse": {
+      "ok": true,
+      "value": "true"
+    }
+  },
+  {
+    "name": "allOf converts with each member in turn",
+    "coerce": {
+      "a": 1,
+      "b": true
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "a": 1,
+        "b": true
+      }
+    }
+  },
+  {
+    "name": "a union takes the first branch whose conversion it accepts",
+    "coerce": true,
+    "parse": {
+      "ok": true,
+      "value": true
+    }
+  },
+  {
+    "name": "a nullable union converts a null string",
+    "coerce": null,
+    "parse": {
+      "ok": true,
+      "value": null
+    }
+  },
+  {
+    "name": "a type array takes the first coercible type",
+    "coerce": 1,
+    "parse": {
+      "ok": true,
+      "value": 1
+    }
+  },
+  {
+    "name": "a value matching one type of a type array stays",
+    "coerce": "1",
+    "parse": {
+      "ok": true,
+      "value": "1"
+    }
+  },
+  {
+    "name": "a single value wraps into a one-item array",
+    "coerce": [
+      1
+    ],
+    "parse": {
+      "ok": true,
+      "value": [
+        1
+      ]
+    }
+  },
+  {
+    "name": "a null wraps into an array and becomes text",
+    "coerce": [
+      "null"
+    ],
+    "parse": {
+      "ok": true,
+      "value": [
+        "null"
+      ]
+    }
+  },
+  {
+    "name": "an array schema without items wraps a single value",
+    "coerce": [
+      "x"
+    ],
+    "parse": {
+      "ok": true,
+      "value": [
+        "x"
+      ]
+    }
+  },
+  {
+    "name": "a tuple converts its items and never wraps",
+    "coerce": [
+      1,
+      true
+    ],
+    "parse": {
+      "ok": true,
+      "value": [
+        1,
+        true
+      ]
+    }
+  },
+  {
+    "name": "a tuple leaves a single value alone",
+    "coerce": "1",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "type",
+          "message": "expected array, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "nested objects convert properties",
+    "coerce": {
+      "count": 42,
+      "tags": [
+        "a"
+      ]
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "count": 42,
+        "tags": [
+          "a"
+        ]
+      }
+    }
+  },
+  {
+    "name": "an optional null that the schema rejects is dropped",
+    "coerce": {
+      "path": "a.txt"
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "path": "a.txt"
+      }
+    }
+  },
+  {
+    "name": "an optional null on a ref is kept",
+    "coerce": {
+      "value": null
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "value": null
+      }
+    }
+  },
+  {
+    "name": "pattern and additional properties convert",
+    "coerce": {
+      "a": 1,
+      "n_x": 2,
+      "other": true
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "a": 1,
+        "n_x": 2,
+        "other": true
+      }
+    }
+  },
+  {
+    "name": "a pattern-matched key is not converted by additionalProperties",
+    "coerce": {
+      "n_a": 5,
+      "other": "7"
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "n_a": 5,
+        "other": "7"
+      }
+    }
+  },
+  {
+    "name": "a pattern and an additional property keep a null",
+    "coerce": {
+      "n": null
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "n": null
+      }
+    }
+  },
+  {
+    "name": "a recursive tree converts through its union",
+    "coerce": {
+      "t": [
+        "5"
+      ]
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "t": [
+          "5"
+        ]
+      }
+    }
+  },
+  {
+    "name": "a recursive json value turns null into text",
+    "coerce": {
+      "data": {
+        "a": [
+          1,
+          "null"
+        ]
+      }
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "data": {
+          "a": [
+            1,
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "a value no recursive branch accepts stays",
+    "coerce": {
+      "t": {
+        "a": 1
+      }
+    },
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "/t",
+          "keyword": "type",
+          "message": "expected string, got object"
+        }
+      ]
+    }
+  },
+  {
+    "name": "a self-referential scalar-or-array schema converts nested items",
+    "coerce": {
+      "value": [
+        1,
+        [
+          2
+        ]
+      ]
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "value": [
+          1,
+          [
+            2
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "a relative ref from the root id follows on the first coerced call",
+    "coerce": {
+      "count": 2
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "count": 2
+      }
+    }
+  },
+  {
+    "name": "draft 7 tuple items convert but additionalItems does not",
+    "coerce": [
+      1,
+      "2"
+    ],
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "/1",
+          "keyword": "type",
+          "message": "expected number, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "numeric-like keys come back in JS key order",
+    "coerce": {
+      "2": 3,
+      "b": 1,
+      "a": 4
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "2": 3,
+        "b": 1,
+        "a": 4
+      }
+    }
+  },
+  {
+    "name": "an unknown type name converts nothing",
+    "coerce": "1",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "type",
+          "message": "expected widget, got string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "const null takes a null-like string",
+    "coerce": "null",
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "",
+          "keyword": "const",
+          "message": "expected null"
+        }
+      ]
+    }
+  },
+  {
+    "name": "a const object compares by JSON equality",
+    "coerce": {
+      "a": 1
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "a": 1
+      }
+    }
+  },
+  {
+    "name": "formats take part in a branch check",
+    "coerce": 1,
+    "parse": {
+      "ok": true,
+      "value": 1
+    }
+  },
+  {
+    "name": "a ref to true leaves every value alone",
+    "coerce": "1",
+    "parse": {
+      "ok": true,
+      "value": "1"
+    }
+  },
+  {
+    "name": "a draft 7 dependencies list with a non-string entry",
+    "coerce": {
+      "a": "1"
+    },
+    "parse": {
+      "ok": false,
+      "errors": [
+        {
+          "path": "/1",
+          "keyword": "dependentRequired",
+          "message": "required when a is present"
+        }
+      ]
+    }
+  },
+  {
+    "name": "an integral float comes out as an integer",
+    "coerce": {
+      "limit": 10
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "limit": 10
+      }
+    }
+  },
+  {
+    "name": "an integral float without a type comes out as an integer",
+    "coerce": {
+      "n": 10
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "n": 10
+      }
+    }
+  },
+  {
+    "name": "dropping an optional null keeps the remaining key order",
+    "coerce": {
+      "b": 1,
+      "c": 2
+    },
+    "parse": {
+      "ok": true,
+      "value": {
+        "b": 1,
+        "c": 2
+      }
+    }
+  }
+]

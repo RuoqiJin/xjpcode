@@ -1,0 +1,153 @@
+[package]
+name = "xjpcode-ai"
+version = "0.1.0"
+edition = "2021"
+
+# 对应上游 src/index.ts（crate 根）。
+[lib]
+path = "src/index.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+# `float_roundtrip`：默认的快速浮点解析会差最后一位，JS 未必会（见 PORTING.md 差异表）。
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+indexmap = { version = "2", features = ["serde"] }
+tokio = { version = "1", features = ["sync", "macros", "rt", "rt-multi-thread", "time"] }
+# HTTP 与流式响应体（上游由 `openai` 包代劳，见 PORTING.md 差异表 #110）。
+reqwest = { version = "0.12", features = ["json", "stream"] }
+# `bytes_stream()` 的 `StreamExt`。
+futures = "0.3"
+# `formatUserAgent` 里的 `new URL(...)`（上游用 WHATWG URL）。
+url = "2"
+# 上游的 `AbortSignal`/`AbortController` 是平台自带；这里用 tokio 的取消令牌实现（见 PORTING.md 差异表 #75）。
+tokio-util = "0.7"
+# 上游 `@earendil-works/pi-ai` 依赖 `@earendil-works/pi-schema`：这里用它的 JS 键序与 JSON 文本。
+xjpcode-schema = { path = "../schema" }
+# PKCE 的 SHA-256 与 base64url（上游用 Web Crypto 与 btoa）。
+sha2 = "0.10"
+base64 = "0.22"
+# PKCE 与 OAuth state 的随机字节（上游用 crypto.getRandomValues / randomBytes）。
+getrandom = "0.2"
+# GPT 订阅那条路的请求体压缩（上游用 node:zlib 的 zstd）。
+zstd = "0.13"
+# 家目录（`~` 展开，上游用 node:os 的 homedir）。
+dirs = "6"
+
+[dev-dependencies]
+# 测试读上游的 `test/data/json-test-suite.json`（每个文件是 base64）。
+base64 = "0.22"
+# `start_paused` 的计时测试（上游用 vitest 的假时钟）。
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "time", "sync", "net", "io-util", "test-util"] }
+
+
+[[test]]
+name = "event_stream"
+path = "test/event_stream.rs"
+
+[[test]]
+name = "identity"
+path = "test/identity.rs"
+
+[[test]]
+name = "json_parse"
+path = "test/json_parse.rs"
+
+[[test]]
+name = "message_types"
+path = "test/message_types.rs"
+
+[[test]]
+name = "constrained_sampling"
+path = "test/constrained_sampling.rs"
+
+[[test]]
+name = "error_body"
+path = "test/error_body.rs"
+
+[[test]]
+name = "estimate"
+path = "test/estimate.rs"
+
+[[test]]
+name = "models"
+path = "test/models.rs"
+
+[[test]]
+name = "openai_completions_tool_ids"
+path = "test/openai_completions_tool_ids.rs"
+
+[[test]]
+name = "openai_completions"
+path = "test/openai_completions.rs"
+
+[[test]]
+name = "oauth_callback_server"
+path = "test/oauth_callback_server.rs"
+
+[[test]]
+name = "oauth_device_code"
+path = "test/oauth_device_code.rs"
+
+[[test]]
+name = "openai_codex_stream"
+path = "test/openai_codex_stream.rs"
+
+[[test]]
+name = "openai_codex_oauth"
+path = "test/openai_codex_oauth.rs"
+
+[[test]]
+name = "openai_responses"
+path = "test/openai_responses.rs"
+
+[[test]]
+name = "auth_resolve"
+path = "test/auth_resolve.rs"
+
+[[test]]
+name = "overflow"
+path = "test/overflow.rs"
+
+[[test]]
+name = "retry"
+path = "test/retry.rs"
+
+[[test]]
+name = "simple_options"
+path = "test/simple_options.rs"
+
+[[test]]
+name = "sse"
+path = "test/sse.rs"
+
+[[test]]
+name = "transform_messages"
+path = "test/transform_messages.rs"
+
+[[test]]
+name = "port_compare_streaming_json"
+path = "test/port_compare_streaming_json.rs"
+
+[[test]]
+name = "streaming_json"
+path = "test/streaming_json.rs"
+
+[[test]]
+name = "system_message_replay"
+path = "test/system_message_replay.rs"
+
+[[test]]
+name = "text"
+path = "test/text.rs"
+
+[[test]]
+name = "transcript_tool_changes"
+path = "test/transcript_tool_changes.rs"
+
+[[test]]
+name = "validation"
+path = "test/validation.rs"
+
+[[test]]
+name = "validation_probes"
+path = "test/validation_probes.rs"

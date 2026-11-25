@@ -1,0 +1,57 @@
+[package]
+name = "xjpcode-agent"
+version = "0.1.0"
+edition = "2021"
+
+# 对应上游 src/index.ts（crate 根）。
+[lib]
+path = "src/index.rs"
+
+[dependencies]
+xjpcode-ai = { path = "../ai" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+# 循环本身不选线程：`agent_loop` 在调用方的任务里跑，并行批用 `join_all` 在同一任务里并发（差异 #75）。
+tokio = { version = "1", features = ["rt", "sync", "macros", "time"] }
+# `join_all`（并行批）与 `FutureExt::catch_unwind`（工具 panic 接成一条错误结果）。
+futures = "0.3"
+# proxy 的 HTTP 请求与流式响应体。
+reqwest = { version = "0.12", features = ["json", "stream"] }
+
+[dev-dependencies]
+# 测试里直接构造 `SystemMessage.sections`（`IndexMap` 就是上游的 `Record`）。
+indexmap = { version = "2", features = ["serde"] }
+# proxy 的测试要一台本地 HTTP 服务。
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "time", "sync", "net", "io-util"] }
+
+[[test]]
+name = "agent"
+path = "test/agent.rs"
+
+[[test]]
+name = "agent_branches"
+path = "test/agent_branches.rs"
+
+[[test]]
+name = "agent_loop"
+path = "test/agent_loop.rs"
+
+[[test]]
+name = "agent_tool_typebox"
+path = "test/agent_tool_typebox.rs"
+
+[[test]]
+name = "e2e"
+path = "test/e2e.rs"
+
+[[test]]
+name = "loop_branches"
+path = "test/loop_branches.rs"
+
+[[test]]
+name = "proxy"
+path = "test/proxy.rs"
+
+[[test]]
+name = "proxy_branches"
+path = "test/proxy_branches.rs"

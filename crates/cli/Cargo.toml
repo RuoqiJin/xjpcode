@@ -1,0 +1,19 @@
+[package]
+name = "xjpcode-cli"
+version = "0.1.0"
+edition = "2021"
+
+# 新内核的终端入口：接 DeepSeek，跑一场真实的对话。旧 `src/` 是 master 上的程序，移植期内不动
+# （`scripts/port/check.sh` 会检查）。
+[[bin]]
+name = "xjpcode-new"
+path = "src/main.rs"
+
+[dependencies]
+xjpcode-ai = { path = "../ai" }
+xjpcode-agent = { path = "../agent" }
+xjpcode-coding-agent = { path = "../coding-agent" }
+indexmap = { version = "2", features = ["serde"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-std", "io-util", "signal", "sync", "time"] }
+dirs = "6"

@@ -1,0 +1,3425 @@
+{
+  "source": "packages/schema/test/coerce-typebox.test.ts",
+  "cases": [
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 1 #1",
+      "schema": {},
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 3 #2",
+      "schema": {},
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 4 #3",
+      "schema": {},
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 5 #4",
+      "schema": {},
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 6 #5",
+      "schema": {},
+      "value": {
+        "x": 1
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Any",
+      "name": "Should Convert 7 #6",
+      "schema": {},
+      "value": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 1 #7",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": [
+        1,
+        3.14,
+        "1",
+        "3.14",
+        true,
+        false,
+        "true",
+        "false",
+        "hello"
+      ],
+      "expected": [
+        1,
+        3.14,
+        1,
+        3.14,
+        1,
+        0,
+        1,
+        0,
+        "hello"
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 2 #8",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "value": [
+        1,
+        3.14,
+        "1",
+        "3.14",
+        true,
+        false,
+        "true",
+        "false",
+        "hello"
+      ],
+      "expected": [
+        true,
+        3.14,
+        true,
+        "3.14",
+        true,
+        false,
+        true,
+        false,
+        "hello"
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 3 #9",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "value": [
+        1,
+        3.14,
+        "1",
+        "3.14",
+        true,
+        false,
+        "true",
+        "false",
+        "hello"
+      ],
+      "expected": [
+        "1",
+        "3.14",
+        "1",
+        "3.14",
+        "true",
+        "false",
+        "true",
+        "false",
+        "hello"
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 4 #10",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": "1",
+      "expected": [
+        1
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 5 #11",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": [],
+      "expected": []
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 6 #12",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": 42,
+      "expected": [
+        42
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 7 #13",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "value": true,
+      "expected": [
+        true
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 8 #14",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "null"
+        }
+      },
+      "value": null,
+      "expected": [
+        null
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 11 #15",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "value": {},
+      "expected": [
+        {}
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 12 #16",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "x"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "value": {
+        "x": 1
+      },
+      "expected": [
+        {
+          "x": 1
+        }
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 13 #17",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": "42",
+      "expected": [
+        42
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 14 #18",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "value": "true",
+      "expected": [
+        true
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 15 #19",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "value": 0,
+      "expected": [
+        false
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 16 #20",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": "hello",
+      "expected": [
+        "hello"
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 17 #21",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": [
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 18 #22",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "value": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 18 #23",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "value": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 19 #24",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "value": {
+        "0": 1,
+        "length": 1
+      },
+      "expected": [
+        {
+          "0": 1,
+          "length": 1
+        }
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 20 #25",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "value": 42,
+      "expected": [
+        [
+          42
+        ]
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 20 #26",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "value": [
+        [
+          42
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 21 #27",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": 1,
+      "expected": [
+        1
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 21 #28",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 22 #29",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": "hello",
+      "expected": [
+        "hello"
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 22 #30",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": [
+        "hello"
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 23 #31",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": [
+        1,
+        "hello",
+        true,
+        "3.14"
+      ],
+      "expected": [
+        1,
+        "hello",
+        1,
+        "3.14"
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 23 #32",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": [
+        1,
+        "hello",
+        1,
+        "3.14"
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 24 #33",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "value": "1",
+      "expected": "1"
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 24 #34",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "value": "1",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 25 #35",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": 42,
+      "expected": [
+        [
+          42
+        ]
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 25 #36",
+      "schema": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "value": [
+        [
+          42
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 26 #37",
+      "schema": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "type": "object",
+              "required": [
+                "x"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "y"
+              ],
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "value": {
+        "x": 1,
+        "y": 2
+      },
+      "expected": [
+        {
+          "x": 1,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 26 #38",
+      "schema": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "type": "object",
+              "required": [
+                "x"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "y"
+              ],
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "value": [
+        {
+          "x": 1,
+          "y": 2
+        }
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 27 #39",
+      "schema": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "type": "object",
+              "required": [
+                "x"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "y"
+              ],
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "value": [
+        {
+          "x": "1",
+          "y": "2"
+        },
+        {
+          "x": "3",
+          "y": "4"
+        }
+      ],
+      "expected": [
+        {
+          "x": 1,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 27 #40",
+      "schema": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "type": "object",
+              "required": [
+                "x"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "y"
+              ],
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "value": [
+        {
+          "x": 1,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 4
+        }
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 28 #41",
+      "schema": {
+        "allOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "value": 42,
+      "expected": [
+        42
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 28 #42",
+      "schema": {
+        "allOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "value": [
+        42
+      ],
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 29 #43",
+      "schema": {
+        "allOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": 42,
+      "expected": [
+        42
+      ]
+    },
+    {
+      "kind": "check",
+      "group": "Value.Convert.Array",
+      "name": "Should Convert 29 #44",
+      "schema": {
+        "allOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": [
+        42
+      ],
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 1 #45",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "1",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 2 #46",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "3.14",
+      "expected": "3.14"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 3 #47",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "true",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 4 #48",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "false",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 5 #49",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 1,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 6 #50",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 3.14,
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 7 #51",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 1.1,
+      "expected": 1.1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 8 #52",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 9 #53",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": false,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 10 #54",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 11 #55",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "true",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 12 #56",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "TRUE",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 13 #57",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "false",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 14 #58",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "0",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 15 #59",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": "1",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 16 #60",
+      "schema": {
+        "type": "boolean",
+        "default": true
+      },
+      "value": "0",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 17 #61",
+      "schema": {
+        "type": "boolean",
+        "default": false
+      },
+      "value": "1",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 18 #62",
+      "schema": {
+        "type": "boolean",
+        "default": true
+      },
+      "value": "2",
+      "expected": "2"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 19 #63",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 0,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 21 #64",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 1,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 22 #65",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": 2,
+      "expected": 2
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 23 #66",
+      "schema": {
+        "type": "boolean",
+        "default": true
+      },
+      "value": 0,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 24 #67",
+      "schema": {
+        "type": "boolean",
+        "default": false
+      },
+      "value": 1,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 25 #68",
+      "schema": {
+        "type": "boolean",
+        "default": true
+      },
+      "value": 2,
+      "expected": 2
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 26 #69",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 27 #70",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": false,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 28 #71",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 29 #72",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": [],
+      "expected": []
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 20 #73",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 21 #74",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": false,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Boolean",
+      "name": "Should Convert 22 #75",
+      "schema": {
+        "type": "boolean"
+      },
+      "value": null,
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Enum",
+      "name": "Should Convert 1 #76",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "enum": [
+              1,
+              2,
+              "hello"
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "1"
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Enum",
+      "name": "Should Convert 1 #77",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "enum": [
+              1,
+              2,
+              "hello"
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "2"
+      },
+      "expected": {
+        "x": 2
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Enum",
+      "name": "Should Convert 1 #78",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "enum": [
+              1,
+              2,
+              "hello"
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "hello"
+      },
+      "expected": {
+        "x": "hello"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Enum",
+      "name": "Should Convert 1 #79",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "enum": [
+              1,
+              2,
+              "hello"
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "world"
+      },
+      "expected": {
+        "x": "world"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 1 #80",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "3.14",
+      "expected": 3
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 2 #81",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "42",
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 3 #82",
+      "schema": {
+        "type": "integer"
+      },
+      "value": true,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 4 #83",
+      "schema": {
+        "type": "integer"
+      },
+      "value": false,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 5 #84",
+      "schema": {
+        "type": "integer"
+      },
+      "value": 3.14,
+      "expected": 3
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 6 #85",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 7 #86",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "3.14",
+      "expected": 3
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 8 #87",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "-0",
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 9 #88",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "-100",
+      "expected": -100
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 10 #89",
+      "schema": {
+        "type": "integer"
+      },
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 11 #90",
+      "schema": {
+        "type": "integer"
+      },
+      "value": true,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 12 #91",
+      "schema": {
+        "type": "integer"
+      },
+      "value": false,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 13 #92",
+      "schema": {
+        "type": "integer"
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 14 #93",
+      "schema": {
+        "type": "integer"
+      },
+      "value": [],
+      "expected": []
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 15 #94",
+      "schema": {
+        "type": "integer"
+      },
+      "value": 1738213389080,
+      "expected": 1738213389080
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 16 #95",
+      "schema": {
+        "type": "integer"
+      },
+      "value": 1738213389080.5554,
+      "expected": 1738213389080
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 17 #96",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "1738213389080",
+      "expected": 1738213389080
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Integer",
+      "name": "Should Convert 18 #97",
+      "schema": {
+        "type": "integer"
+      },
+      "value": "1738213389080.555",
+      "expected": 1738213389080
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Intersect",
+      "name": "Should Convert intersected objects #98",
+      "schema": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "y"
+            ],
+            "properties": {
+              "y": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": {
+        "x": "1",
+        "y": "2"
+      },
+      "expected": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Intersect",
+      "name": "Should complex intersect 1 #99",
+      "schema": {
+        "allOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "y"
+            ],
+            "properties": {
+              "y": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": {
+        "x": "1",
+        "y": "2"
+      },
+      "expected": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Intersect",
+      "name": "Should complex intersect 2 #100",
+      "schema": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "y"
+            ],
+            "properties": {
+              "y": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "value": {
+        "x": "3",
+        "y": "4"
+      },
+      "expected": {
+        "x": 3,
+        "y": 4
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Intersect",
+      "name": "Should complex intersect 3 #101",
+      "schema": {
+        "allOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "required": [
+              "x"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "y"
+            ],
+            "properties": {
+              "y": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": "123",
+      "expected": 123
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralString: Should convert 1 #102",
+      "schema": {
+        "type": "string",
+        "const": "1"
+      },
+      "value": 1,
+      "expected": "1"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralString: Should convert 2 #103",
+      "schema": {
+        "type": "string",
+        "const": "1"
+      },
+      "value": 2,
+      "expected": 2
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralString: Should convert 3 #104",
+      "schema": {
+        "type": "string",
+        "const": "true"
+      },
+      "value": true,
+      "expected": "true"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralNumber: Should convert 1 #105",
+      "schema": {
+        "type": "number",
+        "const": 3.14
+      },
+      "value": "3.14",
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralNumber: Should convert 2 #106",
+      "schema": {
+        "type": "number",
+        "const": 3.14
+      },
+      "value": "3.15",
+      "expected": "3.15"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralNumber: Should convert 3 #107",
+      "schema": {
+        "type": "number",
+        "const": 1
+      },
+      "value": true,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralNumber: Should convert 4 #108",
+      "schema": {
+        "type": "number",
+        "const": 0
+      },
+      "value": false,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralNumber: Should convert 5 #109",
+      "schema": {
+        "type": "number",
+        "const": 2
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 1 #110",
+      "schema": {
+        "type": "boolean",
+        "const": true
+      },
+      "value": 3.14,
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 2 #111",
+      "schema": {
+        "type": "boolean",
+        "const": true
+      },
+      "value": 1,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 3 #112",
+      "schema": {
+        "type": "boolean",
+        "const": true
+      },
+      "value": "true",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 4 #113",
+      "schema": {
+        "type": "boolean",
+        "const": false
+      },
+      "value": "false",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 5 #114",
+      "schema": {
+        "type": "boolean",
+        "const": true
+      },
+      "value": "1",
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 6 #115",
+      "schema": {
+        "type": "boolean",
+        "const": false
+      },
+      "value": "0",
+      "expected": false
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Literal",
+      "name": "LiteralBoolean: Should convert 7 #116",
+      "schema": {
+        "type": "boolean",
+        "const": false
+      },
+      "value": "2",
+      "expected": "2"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Never",
+      "name": "Should not 1 #117",
+      "schema": {
+        "not": {}
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Never",
+      "name": "Should not 2 #118",
+      "schema": {
+        "not": {}
+      },
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Never",
+      "name": "Should not 3 #119",
+      "schema": {
+        "not": {}
+      },
+      "value": "true",
+      "expected": "true"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 1 #120",
+      "schema": {
+        "type": "null"
+      },
+      "value": "null",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 2 #121",
+      "schema": {
+        "type": "null"
+      },
+      "value": "NULL",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 3 #122",
+      "schema": {
+        "type": "null"
+      },
+      "value": "nil",
+      "expected": "nil"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 4 #123",
+      "schema": {
+        "type": "null"
+      },
+      "value": "undefined",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 5 #124",
+      "schema": {
+        "type": "null"
+      },
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 6 #125",
+      "schema": {
+        "type": "null"
+      },
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 7 #126",
+      "schema": {
+        "type": "null"
+      },
+      "value": 0,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 8 #127",
+      "schema": {
+        "type": "null"
+      },
+      "value": false,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 9 #128",
+      "schema": {
+        "type": "null"
+      },
+      "value": "",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 12 #129",
+      "schema": {
+        "type": "null"
+      },
+      "value": false,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 13 #130",
+      "schema": {
+        "type": "null"
+      },
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 14 #131",
+      "schema": {
+        "type": "null"
+      },
+      "value": 0,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 15 #132",
+      "schema": {
+        "type": "null"
+      },
+      "value": 1,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Null",
+      "name": "Should Convert 16 #133",
+      "schema": {
+        "type": "null"
+      },
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 1 #134",
+      "schema": {
+        "type": "number"
+      },
+      "value": "3.14",
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 2 #135",
+      "schema": {
+        "type": "number"
+      },
+      "value": "42",
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 3 #136",
+      "schema": {
+        "type": "number"
+      },
+      "value": true,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 4 #137",
+      "schema": {
+        "type": "number"
+      },
+      "value": false,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 5 #138",
+      "schema": {
+        "type": "number"
+      },
+      "value": 3.14,
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 6 #139",
+      "schema": {
+        "type": "number"
+      },
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 7 #140",
+      "schema": {
+        "type": "number"
+      },
+      "value": "3.14",
+      "expected": 3.14
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 8 #141",
+      "schema": {
+        "type": "number"
+      },
+      "value": "-0",
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 9 #142",
+      "schema": {
+        "type": "number"
+      },
+      "value": "-100",
+      "expected": -100
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 10 #143",
+      "schema": {
+        "type": "number"
+      },
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 11 #144",
+      "schema": {
+        "type": "number"
+      },
+      "value": true,
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 12 #145",
+      "schema": {
+        "type": "number"
+      },
+      "value": false,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 13 #146",
+      "schema": {
+        "type": "number"
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 14 #147",
+      "schema": {
+        "type": "number"
+      },
+      "value": [],
+      "expected": []
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 12 #148",
+      "schema": {
+        "type": "number"
+      },
+      "value": null,
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 13 #149",
+      "schema": {
+        "type": "number"
+      },
+      "value": "false",
+      "expected": 0
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 14 #150",
+      "schema": {
+        "type": "number"
+      },
+      "value": "true",
+      "expected": 1
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 15 #151",
+      "schema": {
+        "type": "number"
+      },
+      "value": "123",
+      "expected": 123
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 16 #152",
+      "schema": {
+        "type": "number"
+      },
+      "value": "123.456",
+      "expected": 123.456
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 17 #153",
+      "schema": {
+        "type": "number"
+      },
+      "value": "123.456",
+      "expected": 123.456
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 18 #154",
+      "schema": {
+        "type": "number"
+      },
+      "value": "123n",
+      "expected": 123
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Number",
+      "name": "Should Convert 20 #155",
+      "schema": {
+        "type": "number"
+      },
+      "value": "90071992547409910n",
+      "expected": "90071992547409910n"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 1 #156",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "boolean"
+          },
+          "z": {
+            "type": "boolean"
+          }
+        }
+      },
+      "value": {
+        "x": "42",
+        "y": "true",
+        "z": "hello"
+      },
+      "expected": {
+        "x": 42,
+        "y": true,
+        "z": "hello"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 2 #157",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x",
+          "y"
+        ],
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "boolean"
+          }
+        }
+      },
+      "value": {
+        "x": "42",
+        "y": "true",
+        "z": "hello"
+      },
+      "expected": {
+        "x": 42,
+        "y": true,
+        "z": "hello"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 3 #158",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        }
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 4 #159",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": {
+          "type": "null"
+        }
+      },
+      "value": {
+        "x": "1",
+        "y": 0
+      },
+      "expected": {
+        "x": 1,
+        "y": null
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 5 #160",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        }
+      },
+      "value": {
+        "x": 1
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Object",
+      "name": "Should Convert 6 #161",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        }
+      },
+      "value": {
+        "x": "1"
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 1 #162",
+      "schema": {
+        "type": "object",
+        "patternProperties": {
+          "^.*$": {
+            "type": "number"
+          }
+        }
+      },
+      "value": {
+        "x": "42",
+        "y": "24",
+        "z": "hello"
+      },
+      "expected": {
+        "x": 42,
+        "y": 24,
+        "z": "hello"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 2 #163",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          }
+        ]
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 3 #164",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 4 #165",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          }
+        ]
+      },
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 5 #166",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 6 #167",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          }
+        ]
+      },
+      "value": "NULL",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 7 #168",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {}
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": "NULL",
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Record",
+      "name": "Should Convert 8 #169",
+      "schema": {
+        "type": "object",
+        "patternProperties": {
+          "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": {
+          "type": "null"
+        }
+      },
+      "value": {
+        "0": "1",
+        "x": 0
+      },
+      "expected": {
+        "0": 1,
+        "x": null
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 1 #170",
+      "schema": {
+        "type": "string"
+      },
+      "value": 3.14,
+      "expected": "3.14"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 2 #171",
+      "schema": {
+        "type": "string"
+      },
+      "value": 3,
+      "expected": "3"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 3 #172",
+      "schema": {
+        "type": "string"
+      },
+      "value": true,
+      "expected": "true"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 4 #173",
+      "schema": {
+        "type": "string"
+      },
+      "value": false,
+      "expected": "false"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 6 #174",
+      "schema": {
+        "type": "string"
+      },
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 7 #175",
+      "schema": {
+        "type": "string"
+      },
+      "value": 42,
+      "expected": "42"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 9 #176",
+      "schema": {
+        "type": "string"
+      },
+      "value": true,
+      "expected": "true"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 10 #177",
+      "schema": {
+        "type": "string"
+      },
+      "value": false,
+      "expected": "false"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 11 #178",
+      "schema": {
+        "type": "string"
+      },
+      "value": {},
+      "expected": {}
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 12 #179",
+      "schema": {
+        "type": "string"
+      },
+      "value": [],
+      "expected": []
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.String",
+      "name": "Should Convert 13 #180",
+      "schema": {
+        "type": "string"
+      },
+      "value": null,
+      "expected": "null"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.TemplateLiteral",
+      "name": "Should Convert 1 #181",
+      "schema": {
+        "type": "string",
+        "pattern": "^(1|2|3)$"
+      },
+      "value": 1,
+      "expected": "1"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.TemplateLiteral",
+      "name": "Should Convert 1 #182",
+      "schema": {
+        "type": "string",
+        "pattern": "^(1|2|3)$"
+      },
+      "value": 2,
+      "expected": "2"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.TemplateLiteral",
+      "name": "Should Convert 1 #183",
+      "schema": {
+        "type": "string",
+        "pattern": "^(1|2|3)$"
+      },
+      "value": 3,
+      "expected": "3"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.TemplateLiteral",
+      "name": "Should Convert 1 #184",
+      "schema": {
+        "type": "string",
+        "pattern": "^(1|2|3)$"
+      },
+      "value": 4,
+      "expected": "4"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.TemplateLiteral",
+      "name": "Should Convert 2 #185",
+      "schema": {
+        "type": "object",
+        "required": [
+          "test"
+        ],
+        "properties": {
+          "test": {
+            "type": "string",
+            "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(a|b|c)$"
+          }
+        }
+      },
+      "value": {
+        "test": "123b"
+      },
+      "expected": {
+        "test": "123b"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 1 #186",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": [
+        "1",
+        "true"
+      ],
+      "expected": [
+        1,
+        1
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 2 #187",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": [
+        "1"
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 3 #188",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": [
+        "1",
+        "2",
+        "3"
+      ],
+      "expected": [
+        1,
+        2,
+        "3"
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 4 #189",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": "not an array",
+      "expected": "not an array"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 5 #190",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 6 #191",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Tuple",
+      "name": "Should Convert 7 #192",
+      "schema": {
+        "type": "array",
+        "additionalItems": false,
+        "items": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2
+      },
+      "value": {
+        "0": "1",
+        "1": "2"
+      },
+      "expected": {
+        "0": "1",
+        "1": "2"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 1 #193",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "42"
+      },
+      "expected": {
+        "x": 42
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 1 #194",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "null"
+      },
+      "expected": {
+        "x": null
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 1 #195",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "hello"
+      },
+      "expected": {
+        "x": "hello"
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 2 #196",
+      "schema": {
+        "type": "object",
+        "required": [
+          "x"
+        ],
+        "properties": {
+          "x": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "value": {
+        "x": "1"
+      },
+      "expected": {
+        "x": true
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 3 #197",
+      "schema": {
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "a"
+                ],
+                "properties": {
+                  "a": {
+                    "type": "number"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "b"
+                ],
+                "properties": {
+                  "b": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "required": [
+              "c"
+            ],
+            "properties": {
+              "c": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": {
+        "a": "1",
+        "c": "2"
+      },
+      "expected": {
+        "a": 1,
+        "c": 2
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 3 #198",
+      "schema": {
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "a"
+                ],
+                "properties": {
+                  "a": {
+                    "type": "number"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "b"
+                ],
+                "properties": {
+                  "b": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "required": [
+              "c"
+            ],
+            "properties": {
+              "c": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": {
+        "b": "1",
+        "c": "2"
+      },
+      "expected": {
+        "b": 1,
+        "c": 2
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should Convert 3 #199",
+      "schema": {
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "a"
+                ],
+                "properties": {
+                  "a": {
+                    "type": "number"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "b"
+                ],
+                "properties": {
+                  "b": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "required": [
+              "c"
+            ],
+            "properties": {
+              "c": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      },
+      "value": {
+        "a": "1",
+        "b": "2",
+        "c": "3"
+      },
+      "expected": {
+        "a": 1,
+        "b": "2",
+        "c": 3
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should guard against Array conversion in Object #200",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "values"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "A"
+              },
+              "values": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "values"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "B"
+              },
+              "values": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "value": [
+        {
+          "type": "A",
+          "values": 1
+        }
+      ],
+      "expected": [
+        {
+          "type": "A",
+          "values": 1
+        }
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Union",
+      "name": "Should guard against Array conversion in Record #201",
+      "schema": {
+        "anyOf": [
+          {
+            "type": "object",
+            "patternProperties": {
+              "^values$": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "patternProperties": {
+              "^type$": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "value": [
+        {
+          "type": "A",
+          "values": 1
+        }
+      ],
+      "expected": [
+        {
+          "type": "A",
+          "values": 1
+        }
+      ]
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 1 #202",
+      "schema": {},
+      "value": null,
+      "expected": null
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 3 #203",
+      "schema": {},
+      "value": "hello",
+      "expected": "hello"
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 4 #204",
+      "schema": {},
+      "value": 42,
+      "expected": 42
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 5 #205",
+      "schema": {},
+      "value": true,
+      "expected": true
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 6 #206",
+      "schema": {},
+      "value": {
+        "x": 1
+      },
+      "expected": {
+        "x": 1
+      }
+    },
+    {
+      "kind": "convert",
+      "group": "Value.Convert.Unknown",
+      "name": "Should Convert 7 #207",
+      "schema": {},
+      "value": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

@@ -1,0 +1,743 @@
+[
+  {
+    "name": "a numeric string becomes a number",
+    "schema": {
+      "type": "number"
+    },
+    "value": "42"
+  },
+  {
+    "name": "an empty string becomes 0 for a number",
+    "schema": {
+      "type": "number"
+    },
+    "value": ""
+  },
+  {
+    "name": "a padded exponent string becomes its number",
+    "schema": {
+      "type": "number"
+    },
+    "value": " \t1e3\n"
+  },
+  {
+    "name": "a hexadecimal string is a number in JS",
+    "schema": {
+      "type": "number"
+    },
+    "value": "0x10"
+  },
+  {
+    "name": "a binary string is a number in JS",
+    "schema": {
+      "type": "number"
+    },
+    "value": "0b101"
+  },
+  {
+    "name": "an octal string is a number in JS",
+    "schema": {
+      "type": "number"
+    },
+    "value": "0o17"
+  },
+  {
+    "name": "Infinity is not a finite number so the string stays",
+    "schema": {
+      "type": "number"
+    },
+    "value": "Infinity"
+  },
+  {
+    "name": "a whitespace-only string becomes 0 in the conversion pass",
+    "schema": {
+      "type": "number"
+    },
+    "value": "   "
+  },
+  {
+    "name": "a bigint-like string becomes a number",
+    "schema": {
+      "type": "number"
+    },
+    "value": "12n"
+  },
+  {
+    "name": "a bigint-like string beyond the safe range stays",
+    "schema": {
+      "type": "number"
+    },
+    "value": "90071992547409910n"
+  },
+  {
+    "name": "a fractional string truncates for an integer",
+    "schema": {
+      "type": "integer"
+    },
+    "value": "1738213389080.555"
+  },
+  {
+    "name": "a negative zero string becomes an integer zero",
+    "schema": {
+      "type": "integer"
+    },
+    "value": "-0"
+  },
+  {
+    "name": "an upper-case TRUE becomes a boolean",
+    "schema": {
+      "type": "boolean"
+    },
+    "value": "TRUE"
+  },
+  {
+    "name": "a boolean string other than true and false stays",
+    "schema": {
+      "type": "boolean"
+    },
+    "value": "2"
+  },
+  {
+    "name": "an upper-case NULL becomes null",
+    "schema": {
+      "type": "null"
+    },
+    "value": "NULL"
+  },
+  {
+    "name": "true becomes its text for a string",
+    "schema": {
+      "type": "string"
+    },
+    "value": true
+  },
+  {
+    "name": "null becomes the text null for a string",
+    "schema": {
+      "type": "string"
+    },
+    "value": null
+  },
+  {
+    "name": "an enum takes the member the value converts to",
+    "schema": {
+      "enum": [
+        1,
+        2,
+        "hello"
+      ]
+    },
+    "value": "2"
+  },
+  {
+    "name": "a const takes a boolean converted to its text",
+    "schema": {
+      "const": "true"
+    },
+    "value": true
+  },
+  {
+    "name": "allOf converts with each member in turn",
+    "schema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "a"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "b"
+          ]
+        }
+      ]
+    },
+    "value": {
+      "a": "1",
+      "b": "true"
+    }
+  },
+  {
+    "name": "a union takes the first branch whose conversion it accepts",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "value": "1"
+  },
+  {
+    "name": "a nullable union converts a null string",
+    "schema": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "value": "null"
+  },
+  {
+    "name": "a type array takes the first coercible type",
+    "schema": {
+      "type": [
+        "boolean",
+        "number"
+      ]
+    },
+    "value": "1"
+  },
+  {
+    "name": "a value matching one type of a type array stays",
+    "schema": {
+      "type": [
+        "number",
+        "string"
+      ]
+    },
+    "value": "1"
+  },
+  {
+    "name": "a single value wraps into a one-item array",
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "value": "1"
+  },
+  {
+    "name": "a null wraps into an array and becomes text",
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "value": null
+  },
+  {
+    "name": "an array schema without items wraps a single value",
+    "schema": {
+      "type": "array"
+    },
+    "value": "x"
+  },
+  {
+    "name": "a tuple converts its items and never wraps",
+    "schema": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "items": false
+    },
+    "value": [
+      "1",
+      "true"
+    ]
+  },
+  {
+    "name": "a tuple leaves a single value alone",
+    "schema": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "items": false
+    },
+    "value": "1"
+  },
+  {
+    "name": "nested objects convert properties",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "count",
+        "tags"
+      ]
+    },
+    "value": {
+      "count": "42",
+      "tags": "a"
+    }
+  },
+  {
+    "name": "an optional null that the schema rejects is dropped",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "value": {
+      "path": "a.txt",
+      "offset": null
+    }
+  },
+  {
+    "name": "an optional null on a ref is kept",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/value"
+        }
+      },
+      "$defs": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "value": {
+      "value": null
+    }
+  },
+  {
+    "name": "pattern and additional properties convert",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "number"
+        }
+      },
+      "patternProperties": {
+        "^n_": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "value": {
+      "a": "1",
+      "n_x": "2",
+      "other": "true"
+    }
+  },
+  {
+    "name": "a pattern-matched key is not converted by additionalProperties",
+    "schema": {
+      "type": "object",
+      "patternProperties": {
+        "^n_": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "value": {
+      "n_a": "5",
+      "other": 7
+    }
+  },
+  {
+    "name": "a pattern and an additional property keep a null",
+    "schema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      }
+    },
+    "value": {
+      "n": null
+    }
+  },
+  {
+    "name": "a recursive tree converts through its union",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "t": {
+          "$ref": "#/$defs/Tree"
+        }
+      },
+      "$defs": {
+        "Tree": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Tree"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "value": {
+      "t": [
+        5
+      ]
+    }
+  },
+  {
+    "name": "a recursive json value turns null into text",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Json"
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "$defs": {
+        "Json": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Json"
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/Json"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "value": {
+      "data": {
+        "a": [
+          1,
+          null
+        ]
+      }
+    }
+  },
+  {
+    "name": "a value no recursive branch accepts stays",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "t": {
+          "$ref": "#/$defs/Tree"
+        }
+      },
+      "$defs": {
+        "Tree": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Tree"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "value": {
+      "t": {
+        "a": 1
+      }
+    }
+  },
+  {
+    "name": "a self-referential scalar-or-array schema converts nested items",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/properties/value"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "value": {
+      "value": [
+        "1",
+        [
+          "2"
+        ]
+      ]
+    }
+  },
+  {
+    "name": "a relative ref from the root id follows on the first coerced call",
+    "schema": {
+      "$id": "https://example.com/root.json",
+      "$dynamicAnchor": "node",
+      "type": "object",
+      "properties": {
+        "count": {
+          "$ref": "defs/n.json"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$dynamicRef": "#node"
+          }
+        }
+      }
+    },
+    "value": {
+      "count": "2"
+    },
+    "options": {
+      "schemas": {
+        "https://example.com/defs/n.json": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  {
+    "name": "draft 7 tuple items convert but additionalItems does not",
+    "schema": {
+      "type": "array",
+      "items": [
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": {
+        "type": "number"
+      }
+    },
+    "value": [
+      "1",
+      "2"
+    ],
+    "options": {
+      "draft": "7"
+    }
+  },
+  {
+    "name": "numeric-like keys come back in JS key order",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "b": {
+          "type": "number"
+        },
+        "2": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "value": {
+      "b": "1",
+      "2": "3",
+      "a": "4"
+    }
+  },
+  {
+    "name": "an unknown type name converts nothing",
+    "schema": {
+      "type": "widget"
+    },
+    "value": "1"
+  },
+  {
+    "name": "const null takes a null-like string",
+    "schema": {
+      "const": null
+    },
+    "value": "null"
+  },
+  {
+    "name": "a const object compares by JSON equality",
+    "schema": {
+      "const": {
+        "a": 1
+      }
+    },
+    "value": {
+      "a": 1
+    }
+  },
+  {
+    "name": "formats take part in a branch check",
+    "schema": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "email"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "value": "1",
+    "options": {
+      "formats": true
+    }
+  },
+  {
+    "name": "a ref to true leaves every value alone",
+    "schema": {
+      "$ref": "#/$defs/any",
+      "$defs": {
+        "any": true
+      }
+    },
+    "value": "1"
+  },
+  {
+    "name": "a draft 7 dependencies list with a non-string entry",
+    "schema": {
+      "dependencies": {
+        "a": [
+          1
+        ]
+      }
+    },
+    "value": {
+      "a": "1"
+    },
+    "options": {
+      "draft": "7"
+    }
+  },
+  {
+    "name": "an integral float comes out as an integer",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer"
+        }
+      }
+    },
+    "value": {
+      "limit": 10.0
+    }
+  },
+  {
+    "name": "an integral float without a type comes out as an integer",
+    "schema": {
+      "type": "object"
+    },
+    "value": {
+      "n": 10.0
+    }
+  },
+  {
+    "name": "dropping an optional null keeps the remaining key order",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string"
+        },
+        "b": {
+          "type": "number"
+        },
+        "c": {
+          "type": "number"
+        }
+      }
+    },
+    "value": {
+      "a": null,
+      "b": 1,
+      "c": 2
+    }
+  }
+]

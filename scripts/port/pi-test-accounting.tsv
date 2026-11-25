@@ -1,0 +1,258 @@
+# 引用了已搬 pi 模块的测试，各有着落。格式见 scripts/port/check-pi-tests.py。
+# 新增搬过来的模块时，用 check-pi-tests.py 找出新缺口，在这里补一行。
+
+packages/agent/test/agent-loop.test.ts	ported	crates/agent/test/agent_loop.rs
+packages/agent/test/agent-tool-typebox.test.ts	ported	crates/agent/test/agent_tool_typebox.rs
+packages/agent/test/agent.test.ts	ported	crates/agent/test/agent.rs
+packages/agent/test/e2e.test.ts	ported	crates/agent/test/e2e.rs
+packages/agent/test/proxy.test.ts	ported	crates/agent/test/proxy.rs
+packages/ai/test/anthropic-auth-token.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/anthropic-federation.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/anthropic-sse-parsing.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/azure-openai-base-url.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/cache-retention.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/clamp-max-tokens.test.ts	ported	crates/ai/test/simple_options.rs
+packages/ai/test/classifier-images-live.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/classifier-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/cloudflare-ai-binding.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/cloudflare-workers-ai-system-one.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/compat-schema.test.ts	deferred	pi-schema builder types/defaults have no Rust counterpart
+packages/ai/test/constrained-sampling.test.ts	partial	crates/ai/test/constrained_sampling.rs | grammar and Responses cases not ported
+packages/ai/test/context-estimate.test.ts	ported	crates/ai/test/estimate.rs
+packages/ai/test/context-overflow.test.ts	deferred	provider-specific overflow wording outside the ported DeepSeek subset
+packages/ai/test/error-body.test.ts	partial	crates/ai/test/error_body.rs | SDK-shaped cases have no Rust counterpart
+packages/ai/test/event-stream.test.ts	ported	crates/ai/test/event_stream.rs
+packages/ai/test/fetch-option.test.ts	deferred	fetch injection is not part of the ported openai-completions path
+packages/ai/test/fireworks-model-generation.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/fireworks-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/github-copilot-anthropic.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/github-copilot-oauth.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/github-copilot-request-size-overflow.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/google-raw-stop-reason.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/google-vertex-api-key-resolution.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/identity.test.ts	partial	crates/ai/test/identity.rs | provider header/effect cases not ported
+packages/ai/test/images-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/json-parse.test.ts	ported	crates/ai/test/json_parse.rs
+packages/ai/test/lax-message-content.test.ts	deferred	lax message content for other providers is not ported
+packages/ai/test/max-thinking.test.ts	partial	crates/ai/test/models.rs | Codex Responses case not ported
+packages/ai/test/message-types.test.ts	ported	crates/ai/test/message_types.rs
+packages/ai/test/mistral-http-transport.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/mistral-raw-stop-reason.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/model-types.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/models-runtime.test.ts	partial	crates/ai/test/models.rs | only the calculateCost cases
+packages/ai/test/oauth-auth.test.ts	partial	crates/ai/test/auth_resolve.rs | only the openai-codex toAuth/subscription rules; the other providers are not ported
+packages/ai/test/openai-codex-stream.test.ts	partial	crates/ai/test/openai_codex_stream.rs | retry/backoff, HTTP timeouts, header overrides, WebSocket cases not ported
+packages/ai/test/openai-completions-cache-control-format.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openai-completions-empty-tools.test.ts	partial	crates/ai/test/openai_completions.rs | Cloudflare and other providers outside the subset
+packages/ai/test/openai-completions-non-null-assistant-content.test.ts	ported	crates/ai/test/openai_completions.rs
+packages/ai/test/openai-completions-prompt-cache.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openai-completions-raw-stop-reason.test.ts	ported	crates/ai/test/openai_completions.rs
+packages/ai/test/openai-completions-reasoning-details.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openai-completions-response-model.test.ts	ported	crates/ai/test/openai_completions.rs
+packages/ai/test/openai-completions-retry.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openai-completions-thinking-as-text.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openai-completions-tool-choice.test.ts	partial	crates/ai/test/openai_completions.rs | other providers outside the subset
+packages/ai/test/openai-completions-tool-result-images.test.ts	partial	crates/ai/test/openai_completions.rs | only the two openai-completions cases
+packages/ai/test/openai-completions-vllm-priority.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openrouter-oauth.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openrouter-reasoning-options.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/openrouter-user-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/overflow.test.ts	ported	crates/ai/test/overflow.rs
+packages/ai/test/pre-generation-error.test.ts	deferred	faux provider / pre-generation errors are outside the ported subset
+packages/ai/test/provider-error-body-regression.test.ts	partial	crates/ai/test/openai_completions.rs | only the openai-completions cases
+packages/ai/test/providers.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/qwen-token-plan-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/radius-provider.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/retry.test.ts	ported	crates/ai/test/retry.rs
+packages/ai/test/streaming-json.test.ts	partial	crates/ai/test/streaming_json.rs | parseStreamingJson interop and allocation-proof cases adapted
+packages/ai/test/streaming-tool-arguments.test.ts	partial	crates/ai/test/openai_completions.rs | allocation proof not ported
+packages/ai/test/system-message-replay.test.ts	ported	crates/ai/test/system_message_replay.rs
+packages/ai/test/telemetry-options.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/telemetry.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/text.test.ts	ported	crates/ai/test/text.rs
+packages/ai/test/transcript-tool-changes.test.ts	partial	crates/ai/test/transcript_tool_changes.rs | only the non-request-body case is portable
+packages/ai/test/transform-messages-copilot-openai-to-anthropic.test.ts	deferred	Copilot/OpenAI-to-Anthropic transforms are not ported
+packages/ai/test/transform-messages-cross-model-thinking.test.ts	ported	crates/ai/test/transform_messages.rs
+packages/ai/test/validation-probes.test.ts	ported	crates/ai/test/validation_probes.rs
+packages/ai/test/validation.test.ts	ported	crates/ai/test/validation.rs
+packages/ai/test/xai-responses.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/ai/test/xiaomi-models.test.ts	deferred	provider/model path outside the ported DeepSeek subset (docs/port/milestone-2.md)
+packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts	partial	crates/coding-agent/test/agent_session.rs | the two private _checkCompaction/_runAutoCompaction cases are not ported
+packages/coding-agent/test/agent-session-branching.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-compaction.test.ts	partial	crates/coding-agent/test/agent_session.rs | the five real-model e2e cases are skipped; manual/events/post-compaction are covered
+packages/coding-agent/test/agent-session-concurrent.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-dynamic-provider.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-dynamic-tools.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-retry.test.ts	partial	crates/coding-agent/test/agent_session.rs | the extension-slowed message_end case has no extension system
+packages/coding-agent/test/agent-session-runtime-diagnostics.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-runtime-events.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/agent-session-stats.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/bash-close-hang-windows.test.ts	deferred	Windows/PowerShell branches are not ported
+packages/coding-agent/test/bash-executor-truncation.test.ts	deferred	bash-executor.ts is not ported (the bash tool calls the shell directly)
+packages/coding-agent/test/block-images.test.ts	deferred	image processing/resizing is not ported
+packages/coding-agent/test/branch-summarization.test.ts	deferred	branching and branch summaries are not ported
+packages/coding-agent/test/bug-report.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/builtin-tool-strict-mode.test.ts	partial	crates/ai/test/openai_completions.rs | createAgentSession wiring not ported
+packages/coding-agent/test/cache-stats.test.ts	deferred	cache stats/warming are not ported
+packages/coding-agent/test/cache-warmer.test.ts	deferred	cache stats/warming are not ported
+packages/coding-agent/test/codemode-worker-config.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/compaction-extensions.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/compaction-nested-calls.test.ts	ported	crates/coding-agent/test/compaction.rs
+packages/coding-agent/test/compaction-serialization.test.ts	ported	crates/coding-agent/test/compaction.rs
+packages/coding-agent/test/compaction-summary-reasoning.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/compaction.test.ts	partial	crates/coding-agent/test/compaction.rs | the two real-model cases are skipped; the v1 sample is adapted
+packages/coding-agent/test/config-value-migration.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/config.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/custom-message.test.ts	deferred	pi TUI CustomMessageComponent; xjpcode keeps its own interface
+packages/coding-agent/test/default-tools-setting.test.ts	deferred	the settings/theme sections of resource-loader are not ported
+packages/coding-agent/test/edit-diff-window.test.ts	partial	crates/coding-agent/test/edit_diff.rs | the 20MB heap limit is not ported
+packages/coding-agent/test/edit-tool-diff-before-write.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/edit-tool-legacy-input.test.ts	partial	crates/coding-agent/test/edit_tool.rs | the non-object input case has no Rust input
+packages/coding-agent/test/edit-tool-no-full-redraw.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/export-html-cjk.test.ts	deferred	session export is not ported
+packages/coding-agent/test/export-html-deep-tree.test.ts	deferred	session export is not ported
+packages/coding-agent/test/export-jsonl-share.test.ts	deferred	session export is not ported
+packages/coding-agent/test/extension-keybinding-hints.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/extensions-input-event.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/extensions-runner.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/file-mutation-queue.test.ts	ported	crates/coding-agent/test/file_mutation_queue.rs
+packages/coding-agent/test/find-abort-before-spawn.test.ts	deferred	pi tool-execution abort plumbing; xjpcode uses the kernel abort signal
+packages/coding-agent/test/first-time-setup.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/footer-width.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/format-resume-command.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/frontmatter.test.ts	ported	crates/coding-agent/test/frontmatter.rs
+packages/coding-agent/test/image-process.test.ts	deferred	image processing/resizing is not ported
+packages/coding-agent/test/image-resize-callers.test.ts	deferred	image processing/resizing is not ported
+packages/coding-agent/test/interactive-mode-compaction.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/interactive-mode-resume-missing-cwd.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/interactive-mode-tree-navigation.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/keybindings-migration.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/model-catalog-protocol.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/model-fallback-diagnostic.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/model-resolver.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/model-scope-session-replacement.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/output-pad.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/package-command-paths.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/path-utils.test.ts	ported	crates/coding-agent/test/path_utils.rs
+packages/coding-agent/test/paths.test.ts	partial	crates/coding-agent/test/paths.rs | Windows cases not ported
+packages/coding-agent/test/powershell-config.test.ts	deferred	Windows/PowerShell branches are not ported
+packages/coding-agent/test/powershell-tool.test.ts	deferred	Windows/PowerShell branches are not ported
+packages/coding-agent/test/program-status-reporter.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/project-trust-saved-decision.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/prompt-templates.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/read-line-range-display.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/read-streaming.test.ts	partial	crates/coding-agent/test/read_streaming.rs | decode/open mock hooks and the 200MB heap limit not ported
+packages/coding-agent/test/remote-catalog-provider.test.ts	deferred	config.ts is a partial port (paths only); this section is not ported
+packages/coding-agent/test/resolve-config-value.test.ts	ported	crates/coding-agent/test/resolve_config_value.rs
+packages/coding-agent/test/resource-loader-theme.test.ts	deferred	the settings/theme sections of resource-loader are not ported
+packages/coding-agent/test/resource-loader.test.ts	partial	crates/coding-agent/test/resource_loader.rs | extensions/prompts/themes/packages/trust/SYSTEM.md sections not ported
+packages/coding-agent/test/rpc-prompt-response-semantics.test.ts	deferred	the RPC surface is not ported
+packages/coding-agent/test/rpc-replacement-diagnostics.test.ts	deferred	the RPC surface is not ported
+packages/coding-agent/test/sdk-client-identity.test.ts	deferred	the SDK surface is not ported
+packages/coding-agent/test/sdk-session-manager.test.ts	deferred	the SDK surface is not ported
+packages/coding-agent/test/sdk-skills.test.ts	deferred	the SDK surface is not ported
+packages/coding-agent/test/sdk-stream-options.test.ts	deferred	the SDK surface is not ported
+packages/coding-agent/test/session-context-edit.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/session-cwd.test.ts	deferred	session-cwd.ts and the CLI runtime are not ported; SessionManager::open keeps the stored cwd
+packages/coding-agent/test/session-file-invalid.test.ts	deferred	the CLI --session error path is not ported; SessionManager::open rejects invalid files
+packages/coding-agent/test/session-id-readonly.test.ts	deferred	createSessionManager / CLI --session-id are not ported
+packages/coding-agent/test/session-info-modified-timestamp.test.ts	deferred	main.ts session startup wiring is not ported
+packages/coding-agent/test/session-manager/build-context.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-manager/custom-session-id.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-manager/file-operations.test.ts	partial	crates/coding-agent/test/session_manager.rs | list/listAll and the large-header scan limit are not ported
+packages/coding-agent/test/session-manager/labels.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-manager/load-entries.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-manager/migration.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/session-manager/save-entry.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-manager/tree-traversal.test.ts	ported	crates/coding-agent/test/session_manager.rs
+packages/coding-agent/test/session-selector-path-delete.test.ts	deferred	pi session UI; xjpcode keeps its own interface
+packages/coding-agent/test/session-selector-rename.test.ts	deferred	pi session UI; xjpcode keeps its own interface
+packages/coding-agent/test/session-selector-search.test.ts	deferred	pi session UI; xjpcode keeps its own interface
+packages/coding-agent/test/session-selector-selection.test.ts	deferred	pi session UI; xjpcode keeps its own interface
+packages/coding-agent/test/shell-kill-process-tree.test.ts	partial	crates/coding-agent/test/shell_kill_process_tree.rs | Windows taskkill cases not ported
+packages/coding-agent/test/shell-path-exists.test.ts	deferred	Windows aliases and Unix access fallbacks are not part of the ported shell subset (docs/port/milestone-3.md)
+packages/coding-agent/test/skills.test.ts	partial	crates/coding-agent/test/skills.rs | real-home ~ expansion case not ported
+packages/coding-agent/test/source-info.test.ts	partial	crates/coding-agent/test/source_info.rs | the Windows casing half has no Rust branch (Windows paths not ported)
+packages/coding-agent/test/startup-session-name.test.ts	deferred	main.ts session startup wiring is not ported
+packages/coding-agent/test/stdout-cleanliness.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/subagent-extension.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/suite/agent-session-bash-persistence.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/suite/agent-session-codemode.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/suite/agent-session-compaction.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/suite/agent-session-mcp.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/suite/agent-session-retry-events.test.ts	partial	crates/coding-agent/test/agent_session.rs | event ordering/extension-event cases are outside the subset
+packages/coding-agent/test/suite/agent-session-runtime.test.ts	deferred	AgentSession subset: branching, dynamic providers/tools, runtime diagnostics and stats are not ported (docs/port/milestone-5.md)
+packages/coding-agent/test/suite/lax-message-content.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/suite/print-mode-session-start-events.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/suite/regressions/10285-mcp-tool-renderers.test.ts	deferred	MCP tool renderers are not ported
+packages/coding-agent/test/suite/regressions/10470-rpc-session-replacement-start-once.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/suite/regressions/11520-sdk-summary-oauth-auth.test.ts	deferred	feature outside the ported subset; see PORTING.md
+packages/coding-agent/test/suite/regressions/11613-bash-timeout-after-shell-exit.test.ts	ported	crates/coding-agent/test/bash_regressions.rs
+packages/coding-agent/test/suite/regressions/2753-reload-stale-resource-settings.test.ts	deferred	hot reload of settings/resources is not ported
+packages/coding-agent/test/suite/regressions/2781-skill-collision-precedence.test.ts	deferred	user-level skill collision precedence is not ported
+packages/coding-agent/test/suite/regressions/2835-tools-allowlist-filters-extension-tools.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/suite/regressions/2860-replaced-session-context.test.ts	deferred	session replacement is not ported
+packages/coding-agent/test/suite/regressions/3592-no-builtin-tools-keeps-extension-tools.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/suite/regressions/3616-settings-inmemory-reload.test.ts	deferred	hot reload of settings/resources is not ported
+packages/coding-agent/test/suite/regressions/4167-thinking-toggle-pending-tool-render.test.ts	deferred	pi TUI behaviour; xjpcode keeps its own interface
+packages/coding-agent/test/suite/regressions/5080-signal-shutdown-extension-cleanup.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/suite/regressions/5208-late-bash-output.test.ts	ported	crates/coding-agent/test/bash_regressions.rs
+packages/coding-agent/test/suite/regressions/5303-bash-output-truncation.test.ts	ported	crates/coding-agent/test/bash_regressions.rs
+packages/coding-agent/test/suite/regressions/5596-missing-theme-export.test.ts	deferred	themes are not ported
+packages/coding-agent/test/suite/regressions/5661-uppercase-header-values.test.ts	deferred	config.ts header handling is not ported
+packages/coding-agent/test/suite/regressions/5943-session-start-notify.test.ts	deferred	extension session-start notifications are not ported
+packages/coding-agent/test/suite/regressions/6260-inline-extension-naming.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/suite/regressions/6596-taskkill-enoent.test.ts	deferred	Windows process-tree killing is not ported
+packages/coding-agent/test/suite/regressions/7150-rpc-prompt-during-compaction.test.ts	deferred	the RPC surface is not ported
+packages/coding-agent/test/suite/regressions/7497-session-discovery-symlink.test.ts	deferred	session discovery via symlinks (list/listAll) is not ported
+packages/coding-agent/test/suite/regressions/8337-utf8-bom-parsing.test.ts	deferred	frontmatter BOM parsing is covered by frontmatter.rs; the regression fixture itself is not ported
+packages/coding-agent/test/suite/regressions/8537-custom-message-tool-result-ordering.test.ts	deferred	custom message ordering through the extension pipeline is not ported
+packages/coding-agent/test/suite/regressions/8989-fork-compaction-label-boundary.test.ts	deferred	forking is not ported
+packages/coding-agent/test/suite/regressions/extension-factory-cache.test.ts	deferred	the extension system is not ported
+packages/coding-agent/test/system-prompt-updates.test.ts	partial	crates/coding-agent/test/system_prompt_updates.rs | the five AgentSession-dependent cases are exercised through agent_session.rs instead
+packages/coding-agent/test/system-prompt.test.ts	ported	crates/coding-agent/test/system_prompt.rs
+packages/coding-agent/test/tool-execution-component.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/tool-renderer-examples.test.ts	deferred	pi TUI component; xjpcode keeps its own interface
+packages/coding-agent/test/tool-system-prompt-contributions.test.ts	partial	crates/coding-agent/test/tool_system_prompt.rs | grep/find/ls/powershell tools not ported
+packages/coding-agent/test/tools.test.ts	partial	crates/coding-agent/test/tools.rs | read text-only warning, BMP conversion, Windows stdin/WSL, executeBash and shell-mock cases not ported
+packages/coding-agent/test/tree-selector.test.ts	deferred	pi session UI; xjpcode keeps its own interface
+packages/coding-agent/test/truncate-surrogates.test.ts	ported	crates/coding-agent/test/truncate.rs
+packages/coding-agent/test/virtual-models.test.ts	deferred	model routing (virtual models) is not ported
+packages/coding-agent/test/windows-shell-config.test.ts	deferred	Windows/PowerShell branches are not ported
+packages/schema/test/coerce-typebox.test.ts	ported	crates/schema/test/coerce_typebox.rs
+packages/schema/test/coerce.test.ts	partial	crates/schema/test/coerce.rs | frozen objects, Function-ban, bigint and undefined cases have no Rust value
+packages/schema/test/conformance.test.ts	ported	crates/schema/test/conformance.rs
+packages/schema/test/shared.test.ts	ported	crates/schema/test/shared.rs
+packages/schema/test/validator.test.ts	partial	crates/schema/test/validator.rs | TypeBox static shapes, Uint8Array, bigint and undefined cases have no Rust value
+packages/ai/test/oauth-callback-server.test.ts	ported	crates/ai/test/oauth_callback_server.rs
+packages/ai/test/oauth-device-code.test.ts	ported	crates/ai/test/oauth_device_code.rs
+packages/ai/test/openai-codex-oauth.test.ts	partial	crates/ai/test/openai_codex_oauth.rs | browser callback/paste-code login and cancellation cases not ported
+packages/ai/test/openai-responses-empty-tool-result.test.ts	ported	crates/ai/test/openai_responses.rs
+packages/ai/test/openai-responses-foreign-toolcall-id.test.ts	ported	crates/ai/test/openai_responses.rs
+packages/ai/test/openai-responses-message-id.test.ts	ported	crates/ai/test/openai_responses.rs
+packages/ai/test/openai-responses-partial-json-cleanup.test.ts	ported	crates/ai/test/openai_responses.rs
+packages/ai/test/openai-responses-terminal-event.test.ts	ported	crates/ai/test/openai_responses.rs
+packages/ai/test/openai-responses-namespace.test.ts	partial	crates/ai/test/openai_responses.rs | custom (grammar) tool namespaces are not ported
+packages/ai/test/openai-responses-input-transformations.test.ts	deferred	reasoning-removal diagnostics are not ported
+packages/ai/test/azure-openai-responses-reasoning-replay.test.ts	deferred	Azure Responses provider is outside this milestone
+packages/coding-agent/test/auth-storage.test.ts	partial	crates/coding-agent/test/auth_storage.rs | proper-lockfile contention/cancellation/compromise cases not ported
+packages/coding-agent/test/auth-check.test.ts	partial	crates/coding-agent/test/model_setup.rs | session-level auth status reporting not ported
+packages/coding-agent/test/auth-login.test.ts	deferred	AgentSession login orchestration and dialogs are not ported; the TUI has its own /login flow
+packages/coding-agent/test/auth-logout.test.ts	deferred	AgentSession logout orchestration is not ported; Models.logout is covered in model_setup.rs
+packages/coding-agent/test/credential-print.test.ts	deferred	the CLI credential printer is not ported
+packages/coding-agent/test/mcp-extension.test.ts	deferred	MCP is outside this milestone
+packages/coding-agent/test/mcp-oauth-refresh.test.ts	deferred	MCP is outside this milestone
+packages/coding-agent/test/mcp-oauth-store.test.ts	deferred	MCP is outside this milestone
+packages/coding-agent/test/suite/agent-session-mcp-oauth.test.ts	deferred	MCP is outside this milestone
+packages/coding-agent/test/model-registry.test.ts	deferred	models.json overlays and the model-registry shell are not ported
+packages/coding-agent/test/model-runtime-auth-options.test.ts	deferred	ModelRuntime auth overrides are not ported (ModelSetup resolves auth per request)
+packages/coding-agent/test/model-runtime-classifiers.test.ts	deferred	classifier models are outside this milestone
+packages/coding-agent/test/model-runtime-cloudflare-compat.test.ts	deferred	Cloudflare providers are outside this milestone
+packages/coding-agent/test/model-runtime-credential-sync.test.ts	deferred	provider recomposition and snapshot credential sync are not ported
+packages/coding-agent/test/model-runtime-images.test.ts	deferred	image models are outside this milestone
+packages/coding-agent/test/model-runtime-modify-models-compat.test.ts	deferred	models.json modifications are not ported
+packages/coding-agent/test/radius.test.ts	deferred	the Radius provider is outside this milestone
+packages/coding-agent/test/runtime-credentials.test.ts	deferred	RuntimeCredentials is not ported
+packages/coding-agent/test/suite/regressions/11692-dispose-waits-for-oauth-refresh.test.ts	deferred	the dispose/settle credential-write API is not ported
+packages/coding-agent/test/suite/regressions/6999-models-json-hot-reload.test.ts	deferred	models.json hot reload is not ported
+packages/coding-agent/test/suite/regressions/7027-credential-refresh-hang.test.ts	deferred	the refresh lock/wait details of RuntimeCredentials are not ported

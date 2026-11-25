@@ -1,0 +1,56 @@
+[package]
+name = "xjpcode-schema"
+version = "0.1.0"
+edition = "2021"
+
+# 对应上游 src/index.ts（crate 根）。
+[lib]
+path = "src/index.rs"
+
+[dependencies]
+# 值类型：上游 `unknown` 在本次移植里固定为 JSON，见 PORTING.md 差异表。
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+# `pattern`/`patternProperties` 是 ECMAScript 正则（带 u 标志），见 PORTING.md 差异表。
+regress = "0.12"
+# 上游 `new URL(...)`（WHATWG）：引用解析与 `url`/`iri` 格式检查。
+url = "2"
+# 上游 `String.prototype.normalize("NFC")`（`idn-email`、`idn-hostname`）。
+unicode-normalization = "0.1"
+# 上游 `decodeURIComponent`（`$ref` 的 fragment）。
+percent-encoding = "2"
+
+[[test]]
+name = "conformance"
+path = "test/conformance.rs"
+
+[[test]]
+name = "shared"
+path = "test/shared.rs"
+
+[[test]]
+name = "recursion"
+path = "test/recursion.rs"
+
+[[test]]
+name = "validator"
+path = "test/validator.rs"
+
+[[test]]
+name = "port_compare"
+path = "test/port_compare.rs"
+
+[[test]]
+name = "js"
+path = "test/js.rs"
+
+[[test]]
+name = "coerce"
+path = "test/coerce.rs"
+
+[[test]]
+name = "coerce_typebox"
+path = "test/coerce_typebox.rs"
+
+[[test]]
+name = "port_compare_coerce"
+path = "test/port_compare_coerce.rs"
